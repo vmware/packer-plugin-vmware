@@ -66,7 +66,7 @@ packer {
   required_version = ">= 1.7.0"
   required_plugins {
     vmware = {
-      version = ">= 2.1.0"
+      version = ">= 2.1.1"
       source  = "github.com/vmware/vmware"
     }
   }
@@ -90,7 +90,7 @@ Examples:
 2. Install a specific version of the plugin:
 
     ```shell
-    packer plugins install github.com/vmware/vmware@v2.1.0
+    packer plugins install github.com/vmware/vmware@v2.1.1
     ```
 
 ### Using the Source
