@@ -4,7 +4,7 @@ go 1.25.8
 
 require (
 	github.com/google/go-cmp v0.7.0
-	github.com/hashicorp/go-version v1.8.0
+	github.com/hashicorp/go-version v1.9.0
 	github.com/hashicorp/hcl/v2 v2.24.0
 	github.com/hashicorp/packer-plugin-sdk v0.6.6
 	github.com/stretchr/testify v1.11.1
