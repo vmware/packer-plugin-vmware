@@ -681,7 +681,7 @@ func parseParameter(val tkParameter) (pParameter, error) {
 			return nil, fmt.Errorf("invalid number of parameters for pParameterRange : %v", val.operand)
 		}
 
-		if idxAddress+1 > len(val.operand) {
+		if idxAddress+1 >= len(val.operand) {
 			res := net.ParseIP(val.operand[idxAddress])
 			return pParameterRange4{min: res, max: res}, nil
 		}
@@ -2337,7 +2337,7 @@ func readDhcpdLeaseEntry(in chan byte) (entry *dhcpLeaseEntry, err error) {
 		// means that we should probably bail.
 		return &dhcpLeaseEntry{address: matches[1]}, fmt.Errorf("missing parameters for lease entry %v", matches[1])
 
-	} else if !ok {
+	} else {
 		// If our channel is closed, so we bail "cleanly".
 		return nil, nil
 	}
