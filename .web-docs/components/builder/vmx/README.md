@@ -391,7 +391,7 @@ wget http://{{ .HTTPIP }}:{{ .HTTPPort }}/foo/bar/preseed.cfg
 <!-- End of code generated from the comments of the HTTPConfig struct in multistep/commonsteps/http_config.go; -->
 
 
-## Shutdown Configuration
+### Shutdown Configuration
 
 **Optional**:
 
@@ -527,7 +527,7 @@ wget http://{{ .HTTPIP }}:{{ .HTTPPort }}/foo/bar/preseed.cfg
 <!-- End of code generated from the comments of the VMXConfig struct in builder/vmware/common/vmx_config.go; -->
 
 
-## Boot Configuration
+### Boot Configuration
 
 <!-- Code generated from the comments of the BootConfig struct in bootcommand/config.go; DO NOT EDIT MANUALLY -->
 
