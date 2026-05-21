@@ -20,7 +20,7 @@ body:
       label: Code of Conduct
       description: The Code of Conduct applies to you when interacting with the community here on GitHub and contributing code.
       options:
-        - label: I have read and agree to the [Code of Conduct](https://github.com/vmware/packer-plugin-vmware/blob/main/CODE_OF_CONDUCT.md).
+        - label: I have read and agree to the [Code of Conduct](https://github.com/vmware/packer-plugin-vmware/blob/main/.github/CODE_OF_CONDUCT.md).
           required: true
         - label: Vote on this issue by adding a 👍 [reaction](https://blog.github.com/2016-03-10-add-reactions-to-pull-requests-issues-and-comments/) to the original issue description to help the maintainers prioritize.
           required: false
@@ -64,8 +64,6 @@ body:
           required: false
         - label: VMware Workstation (Windows/Linux)
           required: false
-        - label: VMware ESX (Baremetal)
-          required: false
   - type: input
     id: hypervisor-version
     attributes:
@@ -75,10 +73,10 @@ body:
     validations:
       required: true
   - type: textarea
-    id: hypervisor-operating-system
+    id: hypervisor-host-operating-system
     attributes:
-      label: Hypervisor Operating System
-      description: Provide the operating system of the hypervisor you are using.
+      label: Hypervisor Host Operating System
+      description: Provide the host operating system of the hypervisor you are using.
     validations:
       required: true
   - type: textarea

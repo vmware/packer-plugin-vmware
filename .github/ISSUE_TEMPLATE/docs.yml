@@ -18,7 +18,7 @@ body:
       label: Code of Conduct
       description: The Code of Conduct applies to you when interacting with the community here on GitHub and contributing code.
       options:
-        - label: I have read and agree to the [Code of Conduct](https://github.com/vmware/packer-plugin-vmware/blob/main/CODE_OF_CONDUCT.md).
+        - label: I have read and agree to the [Code of Conduct](https://github.com/vmware/packer-plugin-vmware/blob/main/.github/CODE_OF_CONDUCT.md).
           required: true
         - label: Vote on this issue by adding a 👍 [reaction](https://blog.github.com/2016-03-10-add-reactions-to-pull-requests-issues-and-comments/) to the original issue description to help the maintainers prioritize.
           required: false

@@ -22,7 +22,7 @@ body:
     attributes:
       label: Code of Conduct
       description: >-
-        This project has a [Code of Conduct](https://github.com/vmware/packer-plugin-vmware/blob/main/CODE_OF_CONDUCT.md)
+        This project has a [Code of Conduct](https://github.com/vmware/packer-plugin-vmware/blob/main/.github/CODE_OF_CONDUCT.md)
         that all participants are expected to understand and follow.
       options:
         - label: I have read and agree to the project's Code of Conduct.
