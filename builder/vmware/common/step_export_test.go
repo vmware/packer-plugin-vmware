@@ -54,7 +54,7 @@ func TestStepExport_localArgs(t *testing.T) {
 	step := new(StepExport)
 
 	step.SkipExport = false
-	step.OutputDir = stringPointer("test_output")
+	step.OutputDir = new("test_output")
 	step.VMName = "test-name"
 	step.Format = "ova"
 
@@ -88,7 +88,7 @@ func TestStepExport_localArgsExportOutputPath(t *testing.T) {
 	step := new(StepExport)
 
 	step.SkipExport = false
-	step.OutputDir = stringPointer("test_output")
+	step.OutputDir = new("test_output")
 	step.VMName = "test-name"
 	step.Format = "ova"
 
@@ -121,7 +121,7 @@ func TestStepExport_localArgs_OvftoolOptions(t *testing.T) {
 	step := new(StepExport)
 
 	step.SkipExport = false
-	step.OutputDir = stringPointer("test_output")
+	step.OutputDir = new("test_output")
 	step.VMName = "test-name"
 	step.Format = "ova"
 	step.OVFToolOptions = []string{"--option=value", "--second-option=\"quoted value\""}

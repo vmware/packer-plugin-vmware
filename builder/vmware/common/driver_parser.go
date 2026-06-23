@@ -1147,8 +1147,7 @@ func ReadDhcpConfiguration(fd *os.File) (DhcpConfiguration, error) {
 	var walkDeclarations func(root pDeclaration, out chan *ConfigDeclaration)
 
 	walkDeclarations = func(root pDeclaration, out chan *ConfigDeclaration) {
-		res := createDeclaration(root)
-		out <- &res
+		out <- new(createDeclaration(root))
 		for _, p := range root.declarations {
 			walkDeclarations(p, out)
 		}

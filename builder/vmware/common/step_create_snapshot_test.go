@@ -17,7 +17,7 @@ func TestStepCreateSnapshot_impl(t *testing.T) {
 
 func NewTestCreateSnapshotStep() *StepCreateSnapshot {
 	return &StepCreateSnapshot{
-		SnapshotName: strPtr("snapshot_name"),
+		SnapshotName: new("snapshot_name"),
 	}
 }
 
@@ -54,7 +54,7 @@ func TestStepCreateSnapshot(t *testing.T) {
 func TestStepCreateSnapshot_skip(t *testing.T) {
 	state := testState(t)
 	step := NewTestCreateSnapshotStep()
-	step.SnapshotName = strPtr("")
+	step.SnapshotName = new("")
 
 	state.Put("vmx_path", "foo")
 

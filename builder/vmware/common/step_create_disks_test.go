@@ -22,7 +22,7 @@ func strPtr(s string) *string {
 }
 func NewTestCreateDiskStep() *StepCreateDisks {
 	return &StepCreateDisks{
-		OutputDir:          strPtr("output_dir"),
+		OutputDir:          new("output_dir"),
 		CreateMainDisk:     true,
 		DiskName:           "disk_name",
 		MainDiskSize:       uint(1024),
