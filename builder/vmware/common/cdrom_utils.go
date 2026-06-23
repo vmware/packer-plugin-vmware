@@ -51,7 +51,7 @@ func FindNextAvailableCDROMSlot(vmxData map[string]string, adapterType string) (
 	}
 
 	// Find the next available slot.
-	for busNum := 0; busNum < 4; busNum++ { // VMware supports up to 4 buses for most adapter types
+	for busNum := range 4 { // VMware supports up to 4 buses for most adapter types
 		busStr := strconv.Itoa(busNum)
 		busSlots := usedSlots[busStr]
 

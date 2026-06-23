@@ -68,7 +68,7 @@ func VNCPassword(skipPassword bool) string {
 
 	password := make([]byte, length)
 
-	for i := 0; i < length; i++ {
+	for i := range length {
 		password[i] = charSet[rand.Intn(charSetLength)]
 	}
 

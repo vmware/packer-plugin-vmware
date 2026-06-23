@@ -1994,7 +1994,7 @@ func flattenNetworkingConfig(in chan networkingCommandEntry) NetworkingConfig {
 			vmnet = e.removeNatPrefix.vnet
 			prefixes, exists := result.natPrefix[vmnet]
 			if exists {
-				for index := 0; index < len(prefixes); index++ {
+				for index := range prefixes {
 					if prefixes[index] == e.removeNatPrefix.prefix {
 						result.natPrefix[vmnet] = append(prefixes[:index], prefixes[index+1:]...)
 						break

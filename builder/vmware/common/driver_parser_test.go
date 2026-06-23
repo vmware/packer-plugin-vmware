@@ -1079,7 +1079,7 @@ func TestParserTokenizeNetworkingConfig(t *testing.T) {
 		{"newline-less"},
 	}
 
-	for testnum := 0; testnum < len(tests); testnum++ {
+	for testnum := range tests {
 		inCh := consumeString(tests[testnum])
 		outCh := tokenizeNetworkingConfig(inCh)
 		result := collectIntoStringList(outCh)
@@ -1091,7 +1091,7 @@ func TestParserTokenizeNetworkingConfig(t *testing.T) {
 		}
 
 		ok := true
-		for index := 0; index < len(expected); index++ {
+		for index := range expected {
 			if result[index] != expected[index] {
 				ok = false
 			}
@@ -1116,7 +1116,7 @@ func TestParserSplitNetworkingConfig(t *testing.T) {
 		{"and", "begin", "with", "an", "empty", "string"},
 	}
 
-	for testnum := 0; testnum < len(tests); testnum++ {
+	for testnum := range tests {
 		inCh := consumeString(tests[testnum])
 		stringCh := tokenizeNetworkingConfig(inCh)
 		outCh := splitNetworkingConfig(stringCh)
@@ -1133,7 +1133,7 @@ func TestParserSplitNetworkingConfig(t *testing.T) {
 		}
 
 		ok := true
-		for index := 0; index < len(expected); index++ {
+		for index := range expected {
 			if result[index] != expected[index] {
 				ok = false
 			}
@@ -1152,14 +1152,14 @@ func TestParserParseNetworkingConfigVersion(t *testing.T) {
 		"VERSION=a,b",
 	}
 
-	for testnum := 0; testnum < len(successTests); testnum++ {
+	for testnum := range successTests {
 		test := []string{successTests[testnum]}
 		if _, err := networkingReadVersion(test); err != nil {
 			t.Errorf("success-test %d parsing failed: %v", 1+testnum, err)
 		}
 	}
 
-	for testnum := 0; testnum < len(successTests); testnum++ {
+	for testnum := range successTests {
 		test := []string{failureTests[testnum]}
 		if _, err := networkingReadVersion(test); err == nil {
 			t.Errorf("failure-test %d should have failed", 1+testnum)
@@ -1181,7 +1181,7 @@ func TestParserParseNetworkingConfigEntries(t *testing.T) {
 		"remove_nat_prefix 57005 /31",
 	}
 
-	for testnum := 0; testnum < len(tests); testnum++ {
+	for testnum := range tests {
 		test := strings.Split(tests[testnum], " ")
 		parser := NetworkingParserByCommand(test[0])
 		if parser == nil {

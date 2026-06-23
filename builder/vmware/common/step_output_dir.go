@@ -97,7 +97,7 @@ func (s *StepOutputDir) Cleanup(state multistep.StateBag) {
 		exists, _ := dir.DirExists()
 		if exists {
 			ui.Say("Deleting output directory...")
-			for i := 0; i < 5; i++ {
+			for range 5 {
 				err := dir.RemoveAll()
 				if err == nil {
 					break
