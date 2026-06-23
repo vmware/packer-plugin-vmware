@@ -108,7 +108,7 @@ func (s *StepOutputDir) Cleanup(state multistep.StateBag) {
 					break
 				}
 
-				log.Printf("[WARN] Failed to remove output dir: %s", err)
+				log.Printf("[WARN] Failed to remove output dir %q: %s", dir.String(), err)
 				time.Sleep(2 * time.Second)
 			}
 		}
