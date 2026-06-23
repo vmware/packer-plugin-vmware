@@ -380,8 +380,7 @@ func runAndLog(cmd *exec.Cmd) (string, string, error) {
 	stdoutString := strings.TrimSpace(stdout.String())
 	stderrString := strings.TrimSpace(stderr.String())
 
-	var exitError *exec.ExitError
-	if errors.As(err, &exitError) {
+	if _, ok := errors.AsType[*exec.ExitError](err); ok {
 		message := stderrString
 		if message == "" {
 			message = stdoutString
