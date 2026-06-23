@@ -44,13 +44,13 @@ This plugin supports the following desktop hypervisors.
 > 4.6.0 or later.
 
 > [!IMPORTANT]
-> The plugin no longer supports VMware ESX as of version v2.0.0. 
+> The plugin no longer supports VMware ESX as of version v2.0.0.
 >
 > For VMware ESX support, please use the [Packer plugin for VMware vSphere][packer-plugin-vsphere].
 
 **Go**:
 
-- [Go 1.26.3][golang-install] is required to build the plugin from source.
+- [Go 1.26.4][golang-install] is required to build the plugin from source.
 
 ## Installation
 
