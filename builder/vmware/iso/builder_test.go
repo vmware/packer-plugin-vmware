@@ -6,6 +6,7 @@ package iso
 
 import (
 	"fmt"
+	"maps"
 	"os"
 	"path/filepath"
 	"reflect"
@@ -595,9 +596,7 @@ func TestBuilderPrepare_ToolsMode(t *testing.T) {
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
 			config := testConfig()
-			for k, v := range tc.config {
-				config[k] = v
-			}
+			maps.Copy(config, tc.config)
 
 			var b Builder
 			_, warns, err := b.Prepare(config)

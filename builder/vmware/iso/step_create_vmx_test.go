@@ -10,6 +10,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"maps"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -85,9 +86,7 @@ func RenderConfig(builderConfig map[string]interface{}, provisionerConfig map[st
 		},
 	}
 	// apply special builder overrides
-	for k, v := range builderConfig {
-		t["builders"][0][k] = v
-	}
+	maps.Copy(t["builders"][0], builderConfig)
 	// Apply special provisioner overrides
 	for k, v := range provisionerConfig {
 		t["provisioners"][0][k] = v
