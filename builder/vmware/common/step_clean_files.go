@@ -30,10 +30,10 @@ func (StepCleanFiles) Run(ctx context.Context, state multistep.StateBag) multist
 	}
 
 	for _, path := range files {
-		// If the file isn't critical to the function of the
-		// virtual machine, we get rid of it.
+		// If the file isn't critical to the function of the virtual machine it will be discarded during the cleanup.
 		keep := false
 		ext := filepath.Ext(path)
+		// skipCleanFileExtensions is a list of file extensions that should not be discarded during the cleanup.
 		if slices.Contains(skipCleanFileExtensions, ext) {
 			keep = true
 		}
