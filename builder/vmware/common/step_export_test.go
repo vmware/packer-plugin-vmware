@@ -17,10 +17,6 @@ func TestStepExport_impl(t *testing.T) {
 	var _ multistep.Step = new(StepExport)
 }
 
-func stringPointer(s string) *string {
-	return &s
-}
-
 func TestStepExport_ReturnIfSkip(t *testing.T) {
 	state := testState(t)
 	driverConfig := &DriverConfig{}

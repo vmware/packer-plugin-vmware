@@ -17,9 +17,6 @@ func TestStepCreateDisks_impl(t *testing.T) {
 	var _ multistep.Step = new(StepCreateDisks)
 }
 
-func strPtr(s string) *string {
-	return &s
-}
 func NewTestCreateDiskStep() *StepCreateDisks {
 	return &StepCreateDisks{
 		OutputDir:          new("output_dir"),
