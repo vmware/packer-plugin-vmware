@@ -14,6 +14,9 @@ import (
 	packersdk "github.com/hashicorp/packer-plugin-sdk/packer"
 )
 
+// maxCleanupRetryAttempts is the number of times cleanup retries output directory removal.
+const maxCleanupRetryAttempts = 5
+
 // StepOutputDir manages the output directory configuration for a build step,
 // including forceful directory overwrite.
 type StepOutputDir struct {
@@ -65,7 +68,9 @@ func (s *StepOutputDir) Run(ctx context.Context, state multistep.StateBag) multi
 	if exists {
 		if s.Force {
 			ui.Say("Deleting previous output directory...")
-			_ = dir.RemoveAll()
+			if err := dir.RemoveAll(); err != nil {
+				log.Printf("[WARN] Failed to remove previous output dir %q: %s", dir.String(), err)
+			}
 		} else {
 			state.Put("error", fmt.Errorf("output directory '%s' already exists", dir.String()))
 			return multistep.ActionHalt
@@ -97,7 +102,7 @@ func (s *StepOutputDir) Cleanup(state multistep.StateBag) {
 		exists, _ := dir.DirExists()
 		if exists {
 			ui.Say("Deleting output directory...")
-			for range 5 {
+			for range maxCleanupRetryAttempts {
 				err := dir.RemoveAll()
 				if err == nil {
 					break
