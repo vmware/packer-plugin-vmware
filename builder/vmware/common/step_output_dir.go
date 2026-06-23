@@ -81,7 +81,7 @@ func (s *StepOutputDir) Run(ctx context.Context, state multistep.StateBag) multi
 	return multistep.ActionContinue
 }
 
-// Cleanup removes the output directory if the build was cancelled or halted.
+// Cleanup removes the output directory if the build was canceled or halted.
 func (s *StepOutputDir) Cleanup(state multistep.StateBag) {
 	if !s.success {
 		return

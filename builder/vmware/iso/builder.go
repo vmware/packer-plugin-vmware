@@ -200,7 +200,7 @@ func (b *Builder) Run(ctx context.Context, ui packersdk.Ui, hook packersdk.Hook)
 		return nil, rawErr.(error)
 	}
 
-	// If interrupted or cancelled, then return.
+	// If interrupted or canceled, then return.
 	if _, ok := state.GetOk(multistep.StateCancelled); ok {
 		return nil, errors.New("build was cancelled")
 	}

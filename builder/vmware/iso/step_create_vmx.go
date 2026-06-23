@@ -122,7 +122,7 @@ func (s *stepCreateVMX) Run(ctx context.Context, state multistep.StateBag) multi
 
 		incrementer := 1
 
-		// Extra VMDKs after primary disk and CDROM.
+		// Extra VMDKs after primary disk and CD-ROM.
 		unitSkip := 2
 
 		// If the CD-ROM is on a different bus we only have to skip the primary disk's unit.

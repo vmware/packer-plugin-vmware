@@ -155,7 +155,7 @@ type DiskAndCDConfigData struct {
 	CdromPath                 string
 }
 
-// DefaultDiskAndCDROMTypes converts disk and CDROM adapter types into VMX configuration data.
+// DefaultDiskAndCDROMTypes converts disk and CD-ROM adapter types into VMX configuration data.
 func DefaultDiskAndCDROMTypes(diskAdapterType string, cdromAdapterType string) DiskAndCDConfigData {
 	diskData := DiskAndCDConfigData{
 		ScsiPresent:         "FALSE",
