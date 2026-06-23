@@ -2270,7 +2270,7 @@ func decodeDhcpdLeaseBytes(input string) ([]byte, error) {
 	processed := &bytes.Buffer{}
 
 	// Split the string into pieces as we'll need to validate it.
-	for _, item := range strings.Split(input, ":") {
+	for item := range strings.SplitSeq(input, ":") {
 		if len(item) != 2 {
 			return []byte{}, fmt.Errorf("bytes are not well-formed (%v)", input)
 		}

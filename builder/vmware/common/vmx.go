@@ -21,7 +21,7 @@ func ParseVMX(contents string) map[string]string {
 
 	lineRe := regexp.MustCompile(`^(.+?)\s*=\s*"?(.*?)"?\s*$`)
 
-	for _, line := range strings.Split(contents, "\n") {
+	for line := range strings.SplitSeq(contents, "\n") {
 		matches := lineRe.FindStringSubmatch(line)
 		if matches == nil {
 			continue
