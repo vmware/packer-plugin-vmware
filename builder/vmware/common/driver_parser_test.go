@@ -36,11 +36,11 @@ func uncommentFromString(s string) string {
 	inCh := consumeString(s)
 	out := uncomment(inCh)
 
-	result := ""
+	var result strings.Builder
 	for item := range out {
-		result += string(item)
+		result.WriteString(string(item))
 	}
-	return result
+	return result.String()
 }
 
 func TestParserUncomment(t *testing.T) {
@@ -492,11 +492,11 @@ func TestParserReadNetworkMap(t *testing.T) {
 }
 
 func collectIntoString(in chan byte) string {
-	result := ""
+	var result strings.Builder
 	for item := range in {
-		result += string(item)
+		result.WriteString(string(item))
 	}
-	return result
+	return result.String()
 }
 
 func TestParserConsumeUntilSentinel(t *testing.T) {

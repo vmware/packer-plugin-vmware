@@ -352,7 +352,7 @@ func NewDriver(dconfig *DriverConfig, config *SSHConfig, vmName string) (Driver,
 		return nil, fmt.Errorf("error finding a driver for %s", runtime.GOOS)
 	}
 
-	errs := ""
+	var errs strings.Builder
 	for _, driver := range drivers {
 		err := driver.Verify()
 
@@ -362,10 +362,10 @@ func NewDriver(dconfig *DriverConfig, config *SSHConfig, vmName string) (Driver,
 		}
 
 		log.Printf("[INFO] Skipping %T because it failed with the following error %s", driver, err)
-		errs += "* " + err.Error() + "\n"
+		errs.WriteString("* " + err.Error() + "\n")
 	}
 
-	return nil, fmt.Errorf("driver initialization failed. fix at least one driver to continue:\n%s", errs)
+	return nil, fmt.Errorf("driver initialization failed. fix at least one driver to continue:\n%s", errs.String())
 }
 
 // runAndLog executes the given command, logs its execution, and returns its stdout, stderr, and any encountered error.
