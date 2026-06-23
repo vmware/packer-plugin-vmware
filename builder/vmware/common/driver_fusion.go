@@ -13,6 +13,7 @@ import (
 	"os/exec"
 	"path/filepath"
 	"runtime"
+	"slices"
 	"strings"
 
 	"github.com/hashicorp/go-version"
@@ -98,10 +99,8 @@ func (d *FusionDriver) IsRunning(vmxPath string) (bool, error) {
 		return false, err
 	}
 
-	for _, line := range strings.Split(stdout, "\n") {
-		if line == absVmxPath {
-			return true, nil
-		}
+	if slices.Contains(strings.Split(stdout, "\n"), absVmxPath) {
+		return true, nil
 	}
 
 	return false, nil

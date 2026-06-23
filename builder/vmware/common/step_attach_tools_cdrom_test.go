@@ -8,6 +8,7 @@ import (
 	"context"
 	"os"
 	"path/filepath"
+	"slices"
 	"testing"
 
 	"github.com/hashicorp/packer-plugin-sdk/multistep"
@@ -97,13 +98,7 @@ displayName = "test"
 	}
 
 	tmpDevices := state.Get("temporaryDevices").([]string)
-	found := false
-	for _, device := range tmpDevices {
-		if device == "ide0:0" {
-			found = true
-			break
-		}
-	}
+	found := slices.Contains(tmpDevices, "ide0:0")
 	if !found {
 		t.Fatal("tools CD-ROM device should be added to temporaryDevices")
 	}

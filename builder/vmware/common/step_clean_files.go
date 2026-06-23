@@ -8,6 +8,7 @@ import (
 	"context"
 	"os"
 	"path/filepath"
+	"slices"
 
 	"github.com/hashicorp/packer-plugin-sdk/multistep"
 	packersdk "github.com/hashicorp/packer-plugin-sdk/packer"
@@ -33,11 +34,8 @@ func (StepCleanFiles) Run(ctx context.Context, state multistep.StateBag) multist
 		// virtual machine, we get rid of it.
 		keep := false
 		ext := filepath.Ext(path)
-		for _, goodExt := range skipCleanFileExtensions {
-			if goodExt == ext {
-				keep = true
-				break
-			}
+		if slices.Contains(skipCleanFileExtensions, ext) {
+			keep = true
 		}
 
 		if !keep {

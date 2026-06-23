@@ -14,6 +14,7 @@ import (
 	"os/exec"
 	"path/filepath"
 	"runtime"
+	"slices"
 	"sort"
 	"strings"
 
@@ -176,10 +177,8 @@ func (d *WorkstationDriver) IsRunning(vmxPath string) (bool, error) {
 		return false, err
 	}
 
-	for _, line := range strings.Split(stdout, "\n") {
-		if line == vmxPath {
-			return true, nil
-		}
+	if slices.Contains(strings.Split(stdout, "\n"), vmxPath) {
+		return true, nil
 	}
 
 	return false, nil

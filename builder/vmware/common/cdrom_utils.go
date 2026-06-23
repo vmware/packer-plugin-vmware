@@ -7,6 +7,7 @@ package common
 import (
 	"fmt"
 	"regexp"
+	"slices"
 	"strconv"
 	"strings"
 )
@@ -21,13 +22,7 @@ func FindNextAvailableCDROMSlot(vmxData map[string]string, adapterType string) (
 	adapterType = strings.ToLower(adapterType)
 
 	validAdapters := []string{"ide", "sata", "scsi"}
-	isValid := false
-	for _, valid := range validAdapters {
-		if adapterType == valid {
-			isValid = true
-			break
-		}
-	}
+	isValid := slices.Contains(validAdapters, adapterType)
 	if !isValid {
 		return "", fmt.Errorf("invalid adapter type: %s; must be one of %v", adapterType, validAdapters)
 	}
