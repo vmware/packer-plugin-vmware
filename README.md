@@ -131,9 +131,9 @@ Licensed under the [Mozilla Public License, version 2.0][license].
 [desktop-hypervisors]: https://www.vmware.com/products/desktop-hypervisor/workstation-and-fusion
 [docs-packer-init]: https://developer.hashicorp.com/packer/docs/commands/init
 [docs-packer-plugin-install]: https://developer.hashicorp.com/packer/docs/plugins/install-plugins
-[docs-vmware-plugin]: https://developer.hashicorp.com/packer/integrations/vmware/vmware/latest/
-[docs-vmware-iso]: https://developer.hashicorp.com/packer/integrations/vmware/vmware/latest/components/builder/iso
-[docs-vmware-vmx]: https://developer.hashicorp.com/packer/integrations/vmware/vmware/latest/components/builder/vmx
+[docs-vmware-plugin]: https://vmware.github.io/packer-plugin-vmware/latest/
+[docs-vmware-iso]: https://vmware.github.io/packer-plugin-vmware/latest/builders/iso/
+[docs-vmware-vmx]: https://vmware.github.io/packer-plugin-vmware/latest/builders/vmx/
 [golang-install]: https://golang.org/doc/install
 [releases-vmware-plugin]: https://github.com/vmware/packer-plugin-vmware/releases
 [packer-plugin-vsphere]: https://developer.hashicorp.com/packer/integrations/vmware/vsphere
