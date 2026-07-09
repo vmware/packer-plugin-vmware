@@ -90,6 +90,7 @@ generate_nav() {
     nav_lines+=('    { Contributing = "community/contributing.md" },')
     nav_lines+=('    { "Code of Conduct" = "community/code-of-conduct.md" },')
     nav_lines+=('    { Releases = "https://github.com/vmware/packer-plugin-vmware/releases" },')
+    nav_lines+=('    { "Release Verification" = "community/release-verification.md" },')
     nav_lines+=('    { Discussions = "https://github.com/vmware/packer-plugin-vmware/discussions" },')
     nav_lines+=('    { "Search Issues" = "https://github.com/vmware/packer-plugin-vmware/issues" },')
     nav_lines+=('    { "Open an Issue" = "https://github.com/vmware/packer-plugin-vmware/issues/new/choose" },')

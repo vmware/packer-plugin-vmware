@@ -103,10 +103,11 @@ To install the compiled plugin, please refer to the Packer [documentation][docs-
 
 ## Documentation
 
-- Please refer to the plugin [documentation][docs-vmware-plugin] for more information on
-the plugin usage.
+- For information on plugin usage, refer to the plugin [documentation][docs-vmware-plugin].
 
-- Please refer to the repository [`example`](example/) directory for usage examples.
+- For information on verifying release checksums and signatures, refer to [Release Verification][docs-release-verification] in the plugin documentation.
+
+- For usage examples, refer to the repository [`example`](example/) directory.
 
 ## Contributing
 
@@ -132,6 +133,7 @@ Licensed under the [Mozilla Public License, version 2.0][license].
 [docs-packer-init]: https://developer.hashicorp.com/packer/docs/commands/init
 [docs-packer-plugin-install]: https://developer.hashicorp.com/packer/docs/plugins/install-plugins
 [docs-vmware-plugin]: https://vmware.github.io/packer-plugin-vmware/latest/
+[docs-release-verification]: https://vmware.github.io/packer-plugin-vmware/latest/community/release-verification/
 [docs-vmware-iso]: https://vmware.github.io/packer-plugin-vmware/latest/builders/iso/
 [docs-vmware-vmx]: https://vmware.github.io/packer-plugin-vmware/latest/builders/vmx/
 [golang-install]: https://golang.org/doc/install
