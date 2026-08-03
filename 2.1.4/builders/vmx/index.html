@@ -1,0 +1,2360 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://vmware.github.io/packer-plugin-vmware/2.1.4/builders/vmx/">
+      
+      
+        <link rel="prev" href="../iso/">
+      
+      
+        <link rel="next" href="../../community/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.52">
+    
+    
+      
+        <title>vmware-vmx - Packer Plugin for VMware Desktop Hypervisors</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../../assets/stylesheets/modern/main.8b3b5a67.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/modern/palette.dfe2e883.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#vmware-vmx" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+          <aside class="md-banner md-banner--warning">
+            <div class="md-banner__inner md-grid md-typeset">
+              
+  <div class="md-version-banner">
+    <span class="md-version-banner__icon" aria-hidden="true">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+    </span>
+    <p class="md-version-banner__text">
+      You are viewing documentation for version
+      <strong class="md-version-banner__version"></strong>.
+      <a href="../../..">View latest version.</a>
+    </p>
+  </div>
+
+            </div>
+            <script>var el=document.querySelector("[data-md-component=outdated]"),base=new URL("../.."),outdated=__md_get("__outdated",sessionStorage,base);!0===outdated&&el&&(el.hidden=!1)</script>
+          </aside>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Packer Plugin for VMware Desktop Hypervisors" class="md-header__button md-logo" aria-label="Packer Plugin for VMware Desktop Hypervisors" data-md-component="logo">
+      
+  <img src="../../assets/header-logo.png" alt="Packer Plugin for VMware Desktop Hypervisors">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title"><div class="md-header__ellipsis">
+        <div class="md-header__topic md-header__topic--version-mount" aria-hidden="true"></div>
+        
+          <div class="md-header__topic" data-md-component="header-topic">
+            <span class="md-ellipsis">
+              
+                vmware-vmx
+              
+            </span>
+          </div>
+        
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-sun-moon" viewBox="0 0 24 24"><path d="M12 2v2M14.837 16.385a6 6 0 1 1-7.223-7.222c.624-.147.97.66.715 1.248a4 4 0 0 0 5.26 5.259c.589-.255 1.396.09 1.248.715M16 12a4 4 0 0 0-4-4M19 5l-1.256 1.256M20 12h2"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-moon" viewBox="0 0 24 24"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+        <a href="https://github.com/vmware/packer-plugin-vmware" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M216.5 362.5c-66-8-112.5-55.5-112.5-117 0-25 9-52 24-70-6.5-16.5-5.5-51.5 2-66 20-2.5 47 8 63 22.5 19-6 39-9 63.5-9s44.5 3 62.5 8.5c15.5-14 43-24.5 63-22 7 13.5 8 48.5 1.5 65.5 16 19 24.5 44.5 24.5 70.5 0 61.5-46.5 108-113.5 116.5 17 11 28.5 35 28.5 62.5v52c0 15 12.5 23.5 27.5 17.5C441 459.5 512 369 512 257 512 115.5 397 0 255.5 0S0 115.5 0 257c0 111 70.5 203 165.5 237.5 13.5 5 26.5-4 26.5-17.5v-40c-7 3-16 5-24 5-33 0-52.5-18-66.5-51.5-5.5-13.5-11.5-21.5-23-23-6-.5-8-3-8-6 0-6 10-10.5 20-10.5 14.5 0 27 9 40 27.5 10 14.5 20.5 21 33 21s20.5-4.5 32-16c8.5-8.5 15-16 21-21"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Packer Plugin for VMware Desktop Hypervisors" class="md-nav__button md-logo" aria-label="Packer Plugin for VMware Desktop Hypervisors" data-md-component="logo">
+      
+  <img src="../../assets/header-logo.png" alt="Packer Plugin for VMware Desktop Hypervisors">
+
+    </a>
+    
+      Packer Plugin for VMware Desktop Hypervisors
+    
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/vmware/packer-plugin-vmware" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M216.5 362.5c-66-8-112.5-55.5-112.5-117 0-25 9-52 24-70-6.5-16.5-5.5-51.5 2-66 20-2.5 47 8 63 22.5 19-6 39-9 63.5-9s44.5 3 62.5 8.5c15.5-14 43-24.5 63-22 7 13.5 8 48.5 1.5 65.5 16 19 24.5 44.5 24.5 70.5 0 61.5-46.5 108-113.5 116.5 17 11 28.5 35 28.5 62.5v52c0 15 12.5 23.5 27.5 17.5C441 459.5 512 369 512 257 512 115.5 397 0 255.5 0S0 115.5 0 257c0 111 70.5 203 165.5 237.5 13.5 5 26.5-4 26.5-17.5v-40c-7 3-16 5-24 5-33 0-52.5-18-66.5-51.5-5.5-13.5-11.5-21.5-23-23-6-.5-8-3-8-6 0-6 10-10.5 20-10.5 14.5 0 27 9 40 27.5 10 14.5 20.5 21 33 21s20.5-4.5 32-16c8.5-8.5 15-16 21-21"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-home" viewBox="0 0 24 24"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-toolbox" viewBox="0 0 24 24"><path d="M16 12v4M16 6V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2M17 6a2 2 0 0 1 1.414.586l3 3A2 2 0 0 1 22 11v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 .586-1.414l3-3A2 2 0 0 1 7 6zM2 14h20M8 12v4"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  Builders
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Builders
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iso/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  vmware-iso
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  vmware-vmx
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="././" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  vmware-vmx
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#basic-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Basic Example
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Configuration Reference
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration Reference">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#extra-disk-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Extra Disk Configuration
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vmware-tools-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        VMware Tools Configuration
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#floppy-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Floppy Configuration
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cd-rom-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        CD-ROM Configuration
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#http-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        HTTP Configuration
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shutdown-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Shutdown Configuration
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#export-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Export Configuration
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Output Configuration
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hypervisor-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Hypervisor Configuration
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advanced-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Advanced Configuration
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boot-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Boot Configuration
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#communicator-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Communicator Configuration
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Communicator Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Common
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ssh" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        SSH
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#windows-remote-management-winrm" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Windows Remote Management (WinRM)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ssh-key-pair-automation" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        SSH Key Pair Automation
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../community/" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M16 3.128a4 4 0 0 1 0 7.744M22 21v-2a4 4 0 0 0-3-3.87"/><circle cx="9" cy="7" r="4"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  Community
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Community
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/support/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Support
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Contributing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/code-of-conduct/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Code of Conduct
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/vmware/packer-plugin-vmware/releases" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Releases
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/release-verification/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Release Verification
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/vmware/packer-plugin-vmware/discussions" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Discussions
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/vmware/packer-plugin-vmware/issues" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Search Issues
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/vmware/packer-plugin-vmware/issues/new/choose" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Open an Issue
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/license/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  License
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                      
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#basic-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Basic Example
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Configuration Reference
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration Reference">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#extra-disk-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Extra Disk Configuration
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vmware-tools-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        VMware Tools Configuration
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#floppy-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Floppy Configuration
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cd-rom-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        CD-ROM Configuration
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#http-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        HTTP Configuration
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shutdown-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Shutdown Configuration
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#export-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Export Configuration
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Output Configuration
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hypervisor-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Hypervisor Configuration
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advanced-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Advanced Configuration
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boot-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Boot Configuration
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#communicator-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Communicator Configuration
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Communicator Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Common
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ssh" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        SSH
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#windows-remote-management-winrm" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Windows Remote Management (WinRM)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ssh-key-pair-automation" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        SSH Key Pair Automation
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+  <div class="md-content" data-md-component="content">
+    
+    
+      <div class="md-version-meta">
+        <div id="md-version-slot" class="md-version-meta__slot"></div>
+      </div>
+    
+    <article class="md-content__inner md-typeset">
+      
+        
+  
+  
+
+
+<h1 id="vmware-vmx">vmware-vmx<a class="headerlink" href="#vmware-vmx" title="Permanent link">&para;</a></h1>
+<p>Type: <code>vmware-vmx</code></p>
+<p>This builder imports an existing virtual machine, runs provisioners on the virtual
+machine, and then exports the virtual machine as an image. Use this builder to start
+from an existing image as the source.</p>
+<table>
+<thead>
+<tr>
+<th>Hypervisor Type</th>
+<th>Artifact BuilderId</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Desktop Hypervisor</td>
+<td><code>vmware.desktop</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="basic-example">Basic Example<a class="headerlink" href="#basic-example" title="Permanent link">&para;</a></h2>
+<p>This example builds a virtual machine from an existing <code>.vmx</code> file. The builder will import the
+virtual machine from the <code>.vmx</code> file, run any provisioners, and then export the virtual machine
+as an image.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Please refer to the <a href="https://github.com/vmware/packer-plugin-vmware"><code>vmware/packer-plugin-vmware</code></a> GitHub repository for more complete examples.</p>
+</div>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">HCL</label><label for="__tabbed_1_2">JSON</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-hcl highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="err">source</span><span class="w"> </span><span class="s2">&quot;vmware-vmx&quot; &quot;example&quot;</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="na">source_path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;/path/to/example.vmx&quot;</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span><span class="na">ssh_username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;packer&quot;</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="na">ssh_password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;password&quot;</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">  </span><span class="na">shutdown_command</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;shutdown -P now&quot;</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="p">}</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="nb">build</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">  </span><span class="na">sources</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">    </span><span class="s2">&quot;source.vmware-vmx.example&quot;</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">  </span><span class="p">]</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="p">}</span>
+</span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-json highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="p">{</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;vmware-vmx&quot;</span><span class="p">,</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">  </span><span class="nt">&quot;source_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/path/to/example.vmx&quot;</span><span class="p">,</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">  </span><span class="nt">&quot;ssh_username&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;packer&quot;</span><span class="p">,</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">  </span><span class="nt">&quot;ssh_password&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;password&quot;</span><span class="p">,</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">  </span><span class="nt">&quot;shutdown_command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;shutdown -P now&quot;</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="p">}</span>
+</span></code></pre></div>
+</div>
+</div>
+</div>
+<h2 id="configuration-reference">Configuration Reference<a class="headerlink" href="#configuration-reference" title="Permanent link">&para;</a></h2>
+<p><strong>Required</strong>:</p>
+<ul>
+<li><code>source_path</code> (string) - Path to the source <code>.vmx</code>, <code>.ovf</code>, or <code>.ova</code> file to clone.</li>
+</ul>
+<p><strong>Optional</strong>:</p>
+<ul>
+<li>
+<p><code>cdrom_adapter_type</code> (string) - The type of controller to use for the CD-ROM device. Allowed values are
+  <code>ide</code>, <code>sata</code>, and <code>scsi</code>. If not specified, the plugin will attempt to
+  determine the appropriate adapter type.</p>
+</li>
+<li>
+<p><code>linked</code> (bool) - By default, the plugin creates a 'full' clone of the virtual machine
+  specified in <code>source_path</code>. The resultant virtual machine is fully
+  independent of the parent it was cloned from.
+  Setting linked to true instead causes the plugin to create the virtual
+  machine as a linked clone. Linked clones use and require ongoing
+  access to the disks of the parent virtual machine. The benefit of a
+  linked clone is that the clones virtual disk is typically very much
+  smaller than would be the case for a full clone. Additionally, the
+  cloned virtual machine can also be created much faster. Creating a
+  linked clone will typically only be of benefit in some advanced build
+  scenarios. Most users will wish to create a full clone instead.
+  Defaults to <code>false</code>.</p>
+</li>
+<li>
+<p><code>attach_snapshot</code> (string) - The name of an existing snapshot to which the builder shall attach the
+  virtual machine before powering on. If no snapshot is specified the
+  virtual machine is started from its current state. Defaults to
+  <code>null/empty</code>.</p>
+</li>
+<li>
+<p><code>vm_name</code> (string) - This is the name of the <code>.vmx</code> file for the virtual machine, without
+  the file extension. By default, this is <code>packer-BUILDNAME</code>, where
+  <code>BUILDNAME</code> is the name of the build.</p>
+</li>
+<li>
+<p><code>snapshot_name</code> (string) - This is the name of the initial snapshot created after provisioning and
+  cleanup. If blank, no snapshot is created.</p>
+</li>
+<li>
+<p><code>guest_os_type</code> (string) - The guest operating system identifier for the virtual machine.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This is required when cloning from an OVF/OVA file
+and overrides the guest operating system identifier set by ovftool.</p>
+</div>
+</li>
+<li>
+<p><code>version</code> (int) - The virtual machine hardware version. Refer to <a href="https://knowledge.broadcom.com/external/article?articleNumber=315655">KB 315655</a>
+  for more information on supported virtual hardware versions.
+  Default is 21. Minimum is 19.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This is only used when cloning from an OVF/OVA file
+and overrides the hardware version set by ovftool.</p>
+</div>
+</li>
+</ul>
+<h3 id="extra-disk-configuration">Extra Disk Configuration<a class="headerlink" href="#extra-disk-configuration" title="Permanent link">&para;</a></h3>
+<p><strong>Optional</strong>:</p>
+<ul>
+<li>
+<p><code>disk_additional_size</code> ([]uint) - The size(s) of additional virtual hard disks in MB. If not specified,
+  the virtual machine will contain only a primary hard disk.</p>
+</li>
+<li>
+<p><code>disk_adapter_type</code> (string) - The adapter type for additional virtual disk(s). Available options
+   are <code>ide</code>, <code>sata</code>, <code>nvme</code>, or <code>scsi</code>.
+    !!! note
+        When specifying <code>scsi</code> as the adapter type, the default
+        adapter type is set to <code>lsilogic</code>. If another option is specified, the
+        plugin will assume it is a <code>scsi</code> interface of that specified type.
+    !!! note
+        This option is intended for advanced users.</p>
+</li>
+<li>
+<p><code>vmdk_name</code> (string) - The filename for the virtual disk to create <em>without</em> the <code>.vmdk</code>
+  extension. Defaults to <code>disk</code>.</p>
+</li>
+<li>
+<p><code>disk_type_id</code> (string) - The type of virtual disk to create. The available options include:</p>
+<table>
+<thead>
+<tr>
+<th>Type ID</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0</code></td>
+<td>Growable virtual disk contained in a single file (monolithic sparse).</td>
+</tr>
+<tr>
+<td><code>1</code></td>
+<td>Growable virtual disk split into 2GB files (split sparse).</td>
+</tr>
+<tr>
+<td><code>2</code></td>
+<td>Preallocated virtual disk contained in a single file (monolithic flat).</td>
+</tr>
+<tr>
+<td><code>3</code></td>
+<td>Preallocated virtual disk split into 2GB files (split flat).</td>
+</tr>
+<tr>
+<td><code>4</code></td>
+<td>Preallocated virtual disk compatible with ESXi (VMFS flat).</td>
+</tr>
+<tr>
+<td><code>5</code></td>
+<td>Compressed disk optimized for streaming.</td>
+</tr>
+</tbody>
+</table>
+<p>Defaults to <code>1</code></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Set <code>skip_compaction</code> to <code>true</code> when using <code>zeroedthick</code>
+or <code>eagerzeroedthick</code> due to default disk compaction behavior.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This option is intended for advanced users.</p>
+</div>
+</li>
+</ul>
+<h3 id="vmware-tools-configuration">VMware Tools Configuration<a class="headerlink" href="#vmware-tools-configuration" title="Permanent link">&para;</a></h3>
+<p><strong>Optional</strong>:</p>
+<ul>
+<li><code>tools_mode</code> (string) - The mode for providing VMware Tools to the virtual machine. Must be
+  explicitly specified when using any tools configuration. Allowed values are:</li>
+<li><code>upload</code>: Uploads VMware Tools ISO to the virtual machine during the build.
+    Requires either <code>tools_upload_flavor</code> or <code>tools_source_path</code> to be specified.</li>
+<li><code>attach</code>: Attaches the VMware Tools ISO to the virtual machine as a CD-ROM
+    device during the build and removes the device upon build completion.
+    Requires <code>tools_source_path</code> to be specified.</li>
+<li>
+<p><code>disable</code>: No VMware Tools ISO is provided to the virtual machine.
+    Any other tools configuration fields are ignored.</p>
+</li>
+<li>
+<p><code>tools_source_path</code> (string) - The absolute local path on your machine to the VMware Tools ISO file.
+  Can be used with <code>tools_mode</code> set to <code>attach</code> or <code>upload</code>. When used with
+  <code>upload</code> mode, cannot be used together with <code>tools_upload_flavor</code>.
+  Must be a path accessible during the build (e.g., "/path/to/vmware-tools.iso".)</p>
+</li>
+<li>
+<p><code>tools_upload_flavor</code> (string) - The flavor of VMware Tools to upload into the virtual machine based on the
+  guest operating system. Can only be used when <code>tools_mode</code> is set to
+  <code>upload</code>. Cannot be used together with <code>tools_source_path</code>. Allowed
+  values include: <code>darwin</code> (macOS), <code>linux</code>, and <code>windows</code>.
+  The plugin will load the VMware Tools ISO from the desktop hypervisor's
+  default installation directory based on the specified flavor, if available.</p>
+</li>
+<li>
+<p><code>tools_upload_path</code> (string) - The absolute path in the virtual machine guest operating system where the
+  VMware Tools ISO will be uploaded. Only used when <code>tools_mode</code> is set to
+  <code>upload</code>. This is a <a href="https://developer.hashicorp.com/packer/docs/templates/legacy_json_templates/engine">configuration template</a>
+  that has a single valid variable: <code>Flavor</code>, which will be the value of
+  <code>tools_upload_flavor</code>. Defaults to <code>{{.Flavor}}.iso</code> when
+  <code>tools_upload_flavor</code> is specified.
+  Must be an absolute path in the guest operating system (e.g., "/tmp/vmware-tools.iso").</p>
+</li>
+</ul>
+<h3 id="floppy-configuration">Floppy Configuration<a class="headerlink" href="#floppy-configuration" title="Permanent link">&para;</a></h3>
+<p>A floppy can be made available for your build. This is most useful for
+unattended Windows installs, which look for an Autounattend.xml file on
+removable media. By default, no floppy will be attached. All files listed in
+this setting get placed into the root directory of the floppy and the floppy
+is attached as the first floppy device. The summary size of the listed files
+must not exceed 1.44 MB. The supported ways to move large files into the OS
+are using <code>http_directory</code> or <a href="https://developer.hashicorp.com/packer/docs/provisioner/file">the file
+provisioner</a>.</p>
+<p><strong>Optional</strong>:</p>
+<ul>
+<li>
+<p><code>floppy_files</code> ([]string) - A list of files to place onto a floppy disk that is attached when the VM
+  is booted. Currently, no support exists for creating sub-directories on
+  the floppy. Wildcard characters (\*, ?, and []) are allowed. Directory
+  names are also allowed, which will add all the files found in the
+  directory to the floppy.</p>
+</li>
+<li>
+<p><code>floppy_dirs</code> ([]string) - A list of directories to place onto the floppy disk recursively. This is
+  similar to the <code>floppy_files</code> option except that the directory structure
+  is preserved. This is useful for when your floppy disk includes drivers
+  or if you just want to organize it's contents as a hierarchy. Wildcard
+  characters (\*, ?, and []) are allowed. The maximum summary size of
+  all files in the listed directories are the same as in <code>floppy_files</code>.</p>
+</li>
+<li>
+<p><code>floppy_content</code> (map[string]string) - Key/Values to add to the floppy disk. The keys represent the paths, and
+  the values contents. It can be used alongside <code>floppy_files</code> or
+  <code>floppy_dirs</code>, which is useful to add large files without loading them
+  into memory. If any paths are specified by both, the contents in
+  <code>floppy_content</code> will take precedence.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">HCL</label><label for="__tabbed_2_2">JSON</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-hcl highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="na">floppy_files</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;vendor-data&quot;</span><span class="p">]</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="nb">floppy_content</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span><span class="s2">&quot;meta-data&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">jsonencode</span><span class="p">(</span><span class="nv">local.instance_data</span><span class="p">)</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">  </span><span class="s2">&quot;user-data&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">templatefile</span><span class="p">(</span><span class="s2">&quot;user-data&quot;, { packages = [&quot;nginx&quot;</span><span class="p">]</span><span class="w"> </span><span class="p">})</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="p">}</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="na">floppy_label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;cidata&quot;</span>
+</span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-json highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nt">&quot;cd_files&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;./somedirectory/meta-data&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;./somedirectory/user-data&quot;</span><span class="p">],</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nt">&quot;cd_label&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;cidata&quot;</span><span class="p">,</span>
+</span></code></pre></div>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p><code>floppy_label</code> (string) - Floppy Label</p>
+</li>
+</ul>
+<h3 id="cd-rom-configuration">CD-ROM Configuration<a class="headerlink" href="#cd-rom-configuration" title="Permanent link">&para;</a></h3>
+<p>An iso (CD) containing custom files can be made available for your build.</p>
+<p>By default, no extra CD will be attached. All files listed in this setting
+get placed into the root directory of the CD and the CD is attached as the
+second CD device.</p>
+<p>This config exists to work around modern operating systems that have no
+way to mount floppy disks, which was our previous go-to for adding files at
+boot time.</p>
+<p><strong>Optional</strong>:</p>
+<ul>
+<li>
+<p><code>cd_files</code> ([]string) - A list of files to place onto a CD that is attached when the VM is
+  booted. This can include either files or directories; any directories
+  will be copied onto the CD recursively, preserving directory structure
+  hierarchy. Symlinks will have the link's target copied into the directory
+  tree on the CD where the symlink was. File globbing is allowed.</p>
+<p><div class="language-hcl highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="na">cd_files</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;./somedirectory/meta-data&quot;, &quot;./somedirectory/user-data&quot;</span><span class="p">]</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="na">cd_label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;cidata&quot;</span>
+</span></code></pre></div>
+  The above will create a CD with two files, user-data and meta-data in the
+  CD root. This specific example is how you would create a CD that can be
+  used for an Ubuntu 20.04 autoinstall.
+  Since globbing is also supported,
+  <div class="language-hcl highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="na">cd_files</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;./somedirectory/*&quot;</span><span class="p">]</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="na">cd_label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;cidata&quot;</span>
+</span></code></pre></div>
+  Would also be an acceptable way to define the above cd. The difference
+  between providing the directory with or without the glob is whether the
+  directory itself or its contents will be at the CD root.
+  Use of this option assumes that you have a command line tool installed
+  that can handle the iso creation. Packer will use one of the following
+  tools:</p>
+<ul>
+<li>xorriso</li>
+<li>mkisofs</li>
+<li>hdiutil (normally found in macOS)</li>
+<li>oscdimg (normally found in Windows as part of the Windows ADK)</li>
+</ul>
+</li>
+<li>
+<p><code>cd_content</code> (map[string]string) - Key/Values to add to the CD. The keys represent the paths, and the values
+  contents. It can be used alongside <code>cd_files</code>, which is useful to add large
+  files without loading them into memory. If any paths are specified by both,
+  the contents in <code>cd_content</code> will take precedence.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">HCL</label><label for="__tabbed_3_2">JSON</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-hcl highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="na">cd_files</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;vendor-data&quot;</span><span class="p">]</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="nb">cd_content</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">  </span><span class="s2">&quot;meta-data&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">jsonencode</span><span class="p">(</span><span class="nv">local.instance_data</span><span class="p">)</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">  </span><span class="s2">&quot;user-data&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">templatefile</span><span class="p">(</span><span class="s2">&quot;user-data&quot;, { packages = [&quot;nginx&quot;</span><span class="p">]</span><span class="w"> </span><span class="p">})</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="p">}</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="na">cd_label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;cidata&quot;</span>
+</span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-json highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nt">&quot;boot_command&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">       </span><span class="s2">&quot;&lt;tab&gt;&lt;wait&gt;&quot;</span><span class="p">,</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">       </span><span class="s2">&quot; ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/centos6-ks.cfg&lt;enter&gt;&quot;</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">    </span><span class="p">]</span>
+</span></code></pre></div>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p><code>cd_label</code> (string) - CD Label</p>
+</li>
+</ul>
+<h3 id="http-configuration">HTTP Configuration<a class="headerlink" href="#http-configuration" title="Permanent link">&para;</a></h3>
+<p>Packer will create an http server serving <code>http_directory</code> when it is set, a
+random free port will be selected and the architecture of the directory
+referenced will be available in your builder.</p>
+<p>Example usage from a builder:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>wget http://{{ .HTTPIP }}:{{ .HTTPPort }}/foo/bar/preseed.cfg
+</span></code></pre></div>
+<p><strong>Optional</strong>:</p>
+<ul>
+<li>
+<p><code>http_directory</code> (string) - Path to a directory to serve using an HTTP server. The files in this
+  directory will be available over HTTP that will be requestable from the
+  virtual machine. This is useful for hosting kickstart files and so on.
+  By default this is an empty string, which means no HTTP server will be
+  started. The address and port of the HTTP server will be available as
+  variables in <code>boot_command</code>. This is covered in more detail below.</p>
+</li>
+<li>
+<p><code>http_content</code> (map[string]string) - Key/Values to serve using an HTTP server. <code>http_content</code> works like and
+  conflicts with <code>http_directory</code>. The keys represent the paths and the
+  values contents, the keys must start with a slash, ex: <code>/path/to/file</code>.
+  <code>http_content</code> is useful for hosting kickstart files and so on. By
+  default this is empty, which means no HTTP server will be started. The
+  address and port of the HTTP server will be available as variables in
+  <code>boot_command</code>. This is covered in more detail below.
+  Example:
+  <div class="language-hcl highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="w">  </span><span class="nb">http_content</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">    </span><span class="s2">&quot;/a/b&quot;</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="nf">file</span><span class="p">(</span><span class="s2">&quot;http/b&quot;</span><span class="p">)</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">    </span><span class="s2">&quot;/foo/bar&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">templatefile</span><span class="p">(</span><span class="s2">&quot;${path.root}/preseed.cfg&quot;, { packages = [&quot;nginx&quot;</span><span class="p">]</span><span class="w"> </span><span class="p">})</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">  </span><span class="p">}</span>
+</span></code></pre></div></p>
+</li>
+<li>
+<p><code>http_port_min</code> (int) - These are the minimum and maximum port to use for the HTTP server
+  started to serve the <code>http_directory</code>. Because Packer often runs in
+  parallel, Packer will choose a randomly available port in this range to
+  run the HTTP server. If you want to force the HTTP server to be on one
+  port, make this minimum and maximum port the same. By default the values
+  are <code>8000</code> and <code>9000</code>, respectively.</p>
+</li>
+<li>
+<p><code>http_port_max</code> (int) - HTTP Port Max</p>
+</li>
+<li>
+<p><code>http_bind_address</code> (string) - This is the bind address for the HTTP server. Defaults to 0.0.0.0 so that
+  it will work with any network interface.</p>
+</li>
+<li>
+<p><code>http_network_protocol</code> (string) - Defines the HTTP Network protocol. Valid options are <code>tcp</code>, <code>tcp4</code>, <code>tcp6</code>,
+  <code>unix</code>, and <code>unixpacket</code>. This value defaults to <code>tcp</code>.</p>
+</li>
+</ul>
+<h3 id="shutdown-configuration">Shutdown Configuration<a class="headerlink" href="#shutdown-configuration" title="Permanent link">&para;</a></h3>
+<p><strong>Optional</strong>:</p>
+<ul>
+<li>
+<p><code>shutdown_command</code> (string) - The command to use to gracefully shut down the machine once all
+  provisioning is complete. By default this is an empty string, which
+  tells Packer to just forcefully shut down the machine. This setting can
+  be safely omitted if for example, a shutdown command to gracefully halt
+  the machine is configured inside a provisioning script. If one or more
+  scripts require a reboot it is suggested to leave this blank (since
+  reboots may fail) and instead specify the final shutdown command in your
+  last script.</p>
+</li>
+<li>
+<p><code>shutdown_timeout</code> (duration string | ex: "1h5m2s") - The amount of time to wait after executing the shutdown_command for the
+  virtual machine to actually shut down. If the machine doesn't shut down
+  in this time it is considered an error. By default, the time out is "5m"
+  (five minutes).</p>
+</li>
+</ul>
+<h3 id="export-configuration">Export Configuration<a class="headerlink" href="#export-configuration" title="Permanent link">&para;</a></h3>
+<p><strong>Optional</strong>:</p>
+<ul>
+<li>
+<p><code>format</code> (string) - The output format of the exported virtual machine. Allowed values are
+  <code>ova</code>, <code>ovf</code>, or <code>vmx</code>. Defaults to <code>vmx</code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Ensure VMware OVF Tool is installed. For the latest version,
+visit <a href="https://developer.broadcom.com/tools/open-virtualization-format-ovf-tool/latest">VMware OVF Tool</a>.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The plugin will create a <code>.vmx</code> and supporting files in the
+output directory and will then export the virtual machine to the specified
+format. These files are <strong>not</strong> automatically cleaned up after the export process.</p>
+</div>
+</li>
+<li>
+<p><code>ovftool_options</code> ([]string) - Additional command-line arguments to send to VMware OVF Tool during the
+  export process. Each string in the array represents a separate
+  command-line argument.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The plugin does not preset any VMware OVF Tool options
+by default.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Ensure VMware OVF Tool is installed. For the latest version,
+visit <a href="https://developer.broadcom.com/tools/open-virtualization-format-ovf-tool/latest">VMware OVF Tool</a>.</p>
+</div>
+</li>
+<li>
+<p><code>skip_export</code> (bool) - Skips the export of the virtual machine. This is useful if the build
+  output is not the resultant image, but created inside the virtual
+  machine. This is useful for debugging purposes. Defaults to <code>false</code>.</p>
+</li>
+<li>
+<p><code>skip_compaction</code> (bool) - At the end of the build process, the plugin defragments and compacts the
+  disks using <code>vmware-vdiskmanager</code>. In some cases, this process may result
+  in slightly larger disk sizes. If this occurs, you can opt to skip the
+  disk compaction step by using this setting. Defaults to <code>false</code>.</p>
+</li>
+</ul>
+<h3 id="output-configuration">Output Configuration<a class="headerlink" href="#output-configuration" title="Permanent link">&para;</a></h3>
+<p><strong>Optional</strong>:</p>
+<ul>
+<li>
+<p><code>output_directory</code> (string) - This is the path on your local machine to the directory where the
+  resulting virtual machine will be created. This may be relative or
+  absolute. If relative, the path is relative to the working directory
+  when Packer is run.
+  By default, this is <code>output-BUILDNAME</code> where <code>BUILDNAME</code> is the name of
+  the build.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This directory must not exist or be empty before running the
+build.</p>
+</div>
+</li>
+</ul>
+<h3 id="hypervisor-configuration">Hypervisor Configuration<a class="headerlink" href="#hypervisor-configuration" title="Permanent link">&para;</a></h3>
+<p><strong>Optional</strong>:</p>
+<ul>
+<li>
+<p><code>fusion_app_path</code> (string) - The installation path of the VMware Fusion application.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This is only required if you are using VMware Fusion as a
+desktop hypervisor and have installed it in a non-default location.</p>
+</div>
+</li>
+<li>
+<p><code>remote_type</code> (string) - No longer supported.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>VMware ESX is not supported by the plugin as of v2.0.0.
+Please use the <a href="https://developer.hashicorp.comhttps://developer.hashicorp.com/packer/integrations/vmware/vsphere">Packer plugin for VMware vSphere</a>.</p>
+</div>
+</li>
+</ul>
+<h3 id="advanced-configuration">Advanced Configuration<a class="headerlink" href="#advanced-configuration" title="Permanent link">&para;</a></h3>
+<p><strong>Optional</strong>:</p>
+<ul>
+<li>
+<p><code>vmx_data</code> (map[string]string) - Key-value pairs that will be inserted into the virtual machine <code>.vmx</code>
+  file before the virtual machine is started. This is useful for
+  setting advanced properties that are not supported by the plugin.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This option is intended for advanced users who understand
+the ramifications of making changes to the <code>.vmx</code> file. This option is
+not necessary for most users.</p>
+</div>
+</li>
+<li>
+<p><code>vmx_data_post</code> (map[string]string) - Key-value pairs that will be inserted into the virtual machine <code>.vmx</code>
+  file after the virtual machine build is complete. This is useful for
+  setting advanced properties that are not supported by the plugin.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This option is intended for advanced users who understand
+the ramifications of making changes to the <code>.vmx</code> file. This option is
+not necessary for most users.</p>
+</div>
+</li>
+<li>
+<p><code>vmx_remove_ethernet_interfaces</code> (bool) - Remove all network adapters from virtual machine <code>.vmx</code> file after the
+  virtual machine build is complete. Defaults to <code>false</code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This option is useful when building Vagrant boxes since
+Vagrant will create interfaces when provisioning a box.</p>
+</div>
+</li>
+<li>
+<p><code>display_name</code> (string) - The inventory display name for the virtual machine. If set, the value
+  provided will override any value set in the <code>vmx_data</code> option or in the
+  <code>.vmx</code> file. This option is useful if you are chaining builds and want to
+  ensure that the display name of each step in the chain is unique.</p>
+</li>
+</ul>
+<h3 id="boot-configuration">Boot Configuration<a class="headerlink" href="#boot-configuration" title="Permanent link">&para;</a></h3>
+<p>The boot configuration is very important: <code>boot_command</code> specifies the keys
+to type when the virtual machine is first booted in order to start the OS
+installer. This command is typed after boot_wait, which gives the virtual
+machine some time to actually load.</p>
+<p>The boot_command is an array of strings. The strings are all typed in
+sequence. It is an array only to improve readability within the template.</p>
+<p>There are a set of special keys available. If these are in your boot
+command, they will be replaced by the proper key:</p>
+<ul>
+<li>
+<p><code>&lt;bs&gt;</code> - Backspace</p>
+</li>
+<li>
+<p><code>&lt;del&gt;</code> - Delete</p>
+</li>
+<li>
+<p><code>&lt;enter&gt; &lt;return&gt;</code> - Simulates an actual "enter" or "return" keypress.</p>
+</li>
+<li>
+<p><code>&lt;esc&gt;</code> - Simulates pressing the escape key.</p>
+</li>
+<li>
+<p><code>&lt;tab&gt;</code> - Simulates pressing the tab key.</p>
+</li>
+<li>
+<p><code>&lt;f1&gt; - &lt;f12&gt;</code> - Simulates pressing a function key.</p>
+</li>
+<li>
+<p><code>&lt;up&gt; &lt;down&gt; &lt;left&gt; &lt;right&gt;</code> - Simulates pressing an arrow key.</p>
+</li>
+<li>
+<p><code>&lt;spacebar&gt;</code> - Simulates pressing the spacebar.</p>
+</li>
+<li>
+<p><code>&lt;insert&gt;</code> - Simulates pressing the insert key.</p>
+</li>
+<li>
+<p><code>&lt;home&gt; &lt;end&gt;</code> - Simulates pressing the home and end keys.</p>
+</li>
+<li>
+<p><code>&lt;pageUp&gt; &lt;pageDown&gt;</code> - Simulates pressing the page up and page down
+    keys.</p>
+</li>
+<li>
+<p><code>&lt;menu&gt;</code> - Simulates pressing the Menu key.</p>
+</li>
+<li>
+<p><code>&lt;leftAlt&gt; &lt;rightAlt&gt;</code> - Simulates pressing the alt key.</p>
+</li>
+<li>
+<p><code>&lt;leftCtrl&gt; &lt;rightCtrl&gt;</code> - Simulates pressing the ctrl key.</p>
+</li>
+<li>
+<p><code>&lt;leftShift&gt; &lt;rightShift&gt;</code> - Simulates pressing the shift key.</p>
+</li>
+<li>
+<p><code>&lt;leftSuper&gt; &lt;rightSuper&gt;</code> - Simulates pressing the super key.</p>
+</li>
+<li>
+<p><code>&lt;leftCommand&gt; &lt;rightCommand&gt;</code> - Simulates pressing the ⌘ key.</p>
+</li>
+<li>
+<p><code>&lt;leftOption&gt; &lt;rightOption&gt;</code> - Simulates pressing the ⌥ key.</p>
+</li>
+<li><code>&lt;wait&gt; &lt;wait5&gt; &lt;wait10&gt;</code> - Adds a 1, 5 or 10 second pause before
+    sending any additional keys. This is useful if you have to generally
+    wait for the UI to update before typing more.</li>
+<li><code>&lt;waitXX&gt;</code> - Add an arbitrary pause before sending any additional keys.
+    The format of <code>XX</code> is a sequence of positive decimal numbers, each with
+    optional fraction and a unit suffix, such as <code>300ms</code>, <code>1.5h</code> or <code>2h45m</code>.
+    Valid time units are <code>ns</code>, <code>us</code> (or <code>µs</code>), <code>ms</code>, <code>s</code>, <code>m</code>, <code>h</code>. For
+    example <code>&lt;wait10m&gt;</code> or <code>&lt;wait1m20s&gt;</code>.</li>
+<li><code>&lt;XXXOn&gt; &lt;XXXOff&gt;</code> - Any printable keyboard character, and of these
+    "special" expressions, with the exception of the <code>&lt;wait&gt;</code> types, can
+    also be toggled on or off. For example, to simulate ctrl+c, use
+    <code>&lt;leftCtrlOn&gt;c&lt;leftCtrlOff&gt;</code>. Be sure to release them, otherwise they
+    will be held down until the machine reboots. To hold the <code>c</code> key down,
+    you would use <code>&lt;cOn&gt;</code>. Likewise, <code>&lt;cOff&gt;</code> to release.</li>
+<li>
+<p><code>{{ .HTTPIP }} {{ .HTTPPort }}</code> - The IP and port, respectively of an
+    HTTP server that is started serving the directory specified by the
+    <code>http_directory</code> configuration parameter. If <code>http_directory</code> isn't
+    specified, these will be blank!</p>
+</li>
+<li>
+<p><code>{{ .Name }}</code> - The name of the VM.</p>
+</li>
+</ul>
+<p>Example boot command. This is actually a working boot command used to start an
+CentOS 6.4 installer:</p>
+<div class="language-hcl highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="na">boot_command</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">       </span><span class="s2">&quot;&lt;tab&gt;&lt;wait&gt;&quot;</span><span class="p">,</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">       </span><span class="s2">&quot; ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/centos6-ks.cfg&lt;enter&gt;&quot;</span>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="w">    </span><span class="p">]</span>
+</span></code></pre></div>
+<p>The example shown below is a working boot command used to start an Ubuntu
+12.04 installer:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">HCL</label><label for="__tabbed_4_2">JSON</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-hcl highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="na">boot_command</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">    </span><span class="s2">&quot;&lt;esc&gt;&lt;esc&gt;&lt;enter&gt;&lt;wait&gt;&quot;</span><span class="p">,</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">    </span><span class="s2">&quot;/install/vmlinuz noapic &quot;</span><span class="p">,</span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="w">    </span><span class="s2">&quot;preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg &quot;</span><span class="p">,</span>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="w">    </span><span class="s2">&quot;debian-installer=en_US auto locale=en_US kbd-chooser/method=us &quot;</span><span class="p">,</span>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="w">    </span><span class="s2">&quot;hostname={{ .Name }} &quot;</span><span class="p">,</span>
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="w">    </span><span class="s2">&quot;fb=false debconf/frontend=noninteractive &quot;</span><span class="p">,</span>
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="w">    </span><span class="s2">&quot;keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA &quot;</span><span class="p">,</span>
+</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="w">    </span><span class="s2">&quot;keyboard-configuration/variant=USA console-setup/ask_detect=false &quot;</span><span class="p">,</span>
+</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a><span class="w">    </span><span class="s2">&quot;initrd=/install/initrd.gz -- &lt;enter&gt;&quot;</span>
+</span><span id="__span-11-12"><a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a>
+</span><span id="__span-11-13"><a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a><span class="p">]</span>
+</span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-json highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="nt">&quot;boot_command&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w">    </span><span class="s2">&quot;&lt;esc&gt;&lt;esc&gt;&lt;enter&gt;&lt;wait&gt;&quot;</span><span class="p">,</span>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="w">    </span><span class="s2">&quot;/install/vmlinuz noapic &quot;</span><span class="p">,</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="w">    </span><span class="s2">&quot;preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg &quot;</span><span class="p">,</span>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="w">    </span><span class="s2">&quot;debian-installer=en_US auto locale=en_US kbd-chooser/method=us &quot;</span><span class="p">,</span>
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="w">    </span><span class="s2">&quot;hostname={{ .Name }} &quot;</span><span class="p">,</span>
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="w">    </span><span class="s2">&quot;fb=false debconf/frontend=noninteractive &quot;</span><span class="p">,</span>
+</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a><span class="w">    </span><span class="s2">&quot;keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA &quot;</span><span class="p">,</span>
+</span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a><span class="w">    </span><span class="s2">&quot;keyboard-configuration/variant=USA console-setup/ask_detect=false &quot;</span><span class="p">,</span>
+</span><span id="__span-12-11"><a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a><span class="w">    </span><span class="s2">&quot;initrd=/install/initrd.gz -- &lt;enter&gt;&quot;</span>
+</span><span id="__span-12-12"><a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a>
+</span><span id="__span-12-13"><a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a><span class="p">]</span>
+</span></code></pre></div>
+</div>
+</div>
+</div>
+<p>For more examples of various boot commands, see the sample projects from our
+<a href="https://packer.io/community-tools#templates">community templates page</a>.</p>
+<p>The boot command "typed" character for character over a VNC connection to
+the machine, simulating a human actually typing the keyboard.</p>
+<p>Keystrokes are typed as separate key up/down events over VNC with a default
+100ms delay. The delay alleviates issues with latency and CPU contention.
+You can tune this delay on a per-builder basis by specifying
+"boot_key_interval" in your Packer template.</p>
+<p><strong>Optional</strong>:</p>
+<ul>
+<li>
+<p><code>boot_keygroup_interval</code> (duration string | ex: "1h5m2s") - Time to wait after sending a group of key pressses. The value of this
+  should be a duration. Examples are <code>5s</code> and <code>1m30s</code> which will cause
+  Packer to wait five seconds and one minute 30 seconds, respectively. If
+  this isn't specified, a sensible default value is picked depending on
+  the builder type.</p>
+</li>
+<li>
+<p><code>boot_wait</code> (duration string | ex: "1h5m2s") - The time to wait after booting the initial virtual machine before typing
+  the <code>boot_command</code>. The value of this should be a duration. Examples are
+  <code>5s</code> and <code>1m30s</code> which will cause Packer to wait five seconds and one
+  minute 30 seconds, respectively. If this isn't specified, the default is
+  <code>10s</code> or 10 seconds. To set boot_wait to 0s, use a negative number, such
+  as "-1s"</p>
+</li>
+<li>
+<p><code>boot_command</code> ([]string) - This is an array of commands to type when the virtual machine is first
+  booted. The goal of these commands should be to type just enough to
+  initialize the operating system installer. Special keys can be typed as
+  well, and are covered in the section below on the boot command. If this
+  is not specified, it is assumed the installer will start itself.</p>
+</li>
+<li>
+<p><code>disable_vnc</code> (bool) - Whether to create a VNC connection or not. A boot_command cannot be used
+  when this is true. Defaults to false.</p>
+</li>
+<li>
+<p><code>boot_key_interval</code> (duration string | ex: "1h5m2s") - Time in ms to wait between each key press</p>
+</li>
+<li>
+<p><code>headless</code> (bool) - The plugin defaults to building virtual machines by launching the
+  desktop hypervisor's graphical user interface (GUI) to display the
+  console of the virtual machine being built. When this value is set to
+  <code>true</code>, the virtual machine will start without a console; however, the
+  plugin will output VNC connection information in case you need to connect
+  to the console to debug the build process. Defaults to <code>false</code>.</p>
+</li>
+<li>
+<p><code>vnc_bind_address</code> (string) - The IP address to use for VNC access to the virtual machine. Defaults to
+  <code>127.0.0.1</code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To bind to all interfaces, use <code>0.0.0.0</code>.</p>
+</div>
+</li>
+<li>
+<p><code>vnc_port_min</code> (int) - The minimum port number to use for VNC access to the virtual machine.
+  The plugin uses VNC to type the <code>boot_command</code>. Defaults to <code>5900</code>.</p>
+</li>
+<li>
+<p><code>vnc_port_max</code> (int) - The maximum port number to use for VNC access to the virtual machine.
+  The plugin uses VNC to type the <code>boot_command</code>. Defaults to <code>6000</code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The plugin randomly selects port within the inclusive range
+specified by <code>vnc_port_min</code> and <code>vnc_port_max</code>.</p>
+</div>
+</li>
+<li>
+<p><code>vnc_disable_password</code> (bool) - Disables the auto-generation of a VNC password that is used to secure the
+  VNC communication with the virtual machine. Defaults to <code>false</code>.</p>
+</li>
+</ul>
+<h3 id="communicator-configuration">Communicator Configuration<a class="headerlink" href="#communicator-configuration" title="Permanent link">&para;</a></h3>
+<p><strong>Optional</strong>:</p>
+<h5 id="common">Common<a class="headerlink" href="#common" title="Permanent link">&para;</a></h5>
+<ul>
+<li><code>communicator</code> (string) - Packer currently supports three kinds of communicators:</li>
+<li>
+<p><code>none</code> - No communicator will be used. If this is set, most
+      provisioners also can't be used.</p>
+</li>
+<li>
+<p><code>ssh</code> - An SSH connection will be established to the machine. This
+      is usually the default.</p>
+</li>
+<li>
+<p><code>winrm</code> - A WinRM connection will be established.
+  In addition to the above, some builders have custom communicators they
+  can use. For example, the Docker builder has a "docker" communicator
+  that uses <code>docker exec</code> and <code>docker cp</code> to execute scripts and copy
+  files.</p>
+</li>
+<li>
+<p><code>pause_before_connecting</code> (duration string | ex: "1h5m2s") - We recommend that you enable SSH or WinRM as the very last step in your
+  guest's bootstrap script, but sometimes you may have a race condition
+  where you need Packer to wait before attempting to connect to your
+  guest.
+  If you end up in this situation, you can use the template option
+  <code>pause_before_connecting</code>. By default, there is no pause. For example if
+  you set <code>pause_before_connecting</code> to <code>10m</code> Packer will check whether it
+  can connect, as normal. But once a connection attempt is successful, it
+  will disconnect and then wait 10 minutes before connecting to the guest
+  and beginning provisioning.</p>
+</li>
+</ul>
+<h5 id="ssh">SSH<a class="headerlink" href="#ssh" title="Permanent link">&para;</a></h5>
+<ul>
+<li>
+<p><code>ssh_host</code> (string) - The address to SSH to. This usually is automatically configured by the
+  builder.</p>
+</li>
+<li>
+<p><code>ssh_port</code> (int) - The port to connect to SSH. This defaults to <code>22</code>.</p>
+</li>
+<li><code>ssh_username</code> (string) - The username to connect to SSH with. Required if using SSH.</li>
+<li><code>ssh_password</code> (string) - A plaintext password to use to authenticate with SSH.</li>
+<li>
+<p><code>ssh_ciphers</code> ([]string) - This overrides the value of ciphers supported by default by Golang.
+  The default value is [
+    "aes128-gcm@openssh.com",
+    "chacha20-poly1305@openssh.com",
+    "aes128-ctr", "aes192-ctr", "aes256-ctr",
+  ]
+  Valid options for ciphers include:
+  "aes128-ctr", "aes192-ctr", "aes256-ctr", "aes128-gcm@openssh.com",
+  "chacha20-poly1305@openssh.com",
+  "arcfour256", "arcfour128", "arcfour", "aes128-cbc", "3des-cbc",</p>
+</li>
+<li>
+<p><code>ssh_clear_authorized_keys</code> (bool) - If true, Packer will attempt to remove its temporary key from
+  <code>~/.ssh/authorized_keys</code> and <code>/root/.ssh/authorized_keys</code>. This is a
+  mostly cosmetic option, since Packer will delete the temporary private
+  key from the host system regardless of whether this is set to true
+  (unless the user has set the <code>-debug</code> flag). Defaults to "false";
+  currently only works on guests with <code>sed</code> installed.</p>
+</li>
+<li>
+<p><code>ssh_key_exchange_algorithms</code> ([]string) - If set, Packer will override the value of key exchange (kex) algorithms
+  supported by default by Golang. Acceptable values include:
+  "curve25519-sha256@libssh.org", "ecdh-sha2-nistp256",
+  "ecdh-sha2-nistp384", "ecdh-sha2-nistp521",
+  "diffie-hellman-group14-sha1", and "diffie-hellman-group1-sha1".</p>
+</li>
+<li>
+<p><code>ssh_certificate_file</code> (string) - Path to user certificate used to authenticate with SSH.
+  The <code>~</code> can be used in path and will be expanded to the
+  home directory of current user.</p>
+</li>
+<li>
+<p><code>ssh_pty</code> (bool) - If <code>true</code>, a PTY will be requested for the SSH connection. This defaults
+  to <code>false</code>.</p>
+</li>
+<li>
+<p><code>ssh_timeout</code> (duration string | ex: "1h5m2s") - The time to wait for SSH to become available. Packer uses this to
+  determine when the machine has booted so this is usually quite long.
+  Example value: <code>10m</code>.
+  This defaults to <code>5m</code>, unless <code>ssh_handshake_attempts</code> is set.</p>
+</li>
+<li>
+<p><code>ssh_disable_agent_forwarding</code> (bool) - If true, SSH agent forwarding will be disabled. Defaults to <code>false</code>.</p>
+</li>
+<li>
+<p><code>ssh_handshake_attempts</code> (int) - The number of handshakes to attempt with SSH once it can connect.
+  This defaults to <code>10</code>, unless a <code>ssh_timeout</code> is set.</p>
+</li>
+<li>
+<p><code>ssh_bastion_host</code> (string) - A bastion host to use for the actual SSH connection.</p>
+</li>
+<li><code>ssh_bastion_port</code> (int) - The port of the bastion host. Defaults to <code>22</code>.</li>
+<li>
+<p><code>ssh_bastion_agent_auth</code> (bool) - If <code>true</code>, the local SSH agent will be used to authenticate with the
+  bastion host. Defaults to <code>false</code>.</p>
+</li>
+<li>
+<p><code>ssh_bastion_username</code> (string) - The username to connect to the bastion host.</p>
+</li>
+<li><code>ssh_bastion_password</code> (string) - The password to use to authenticate with the bastion host.</li>
+<li><code>ssh_bastion_interactive</code> (bool) - If <code>true</code>, the keyboard-interactive used to authenticate with bastion host.</li>
+<li>
+<p><code>ssh_bastion_private_key_file</code> (string) - Path to a PEM encoded private key file to use to authenticate with the
+  bastion host. The <code>~</code> can be used in path and will be expanded to the
+  home directory of current user.</p>
+</li>
+<li>
+<p><code>ssh_bastion_certificate_file</code> (string) - Path to user certificate used to authenticate with bastion host.
+  The <code>~</code> can be used in path and will be expanded to the
+  home directory of current user.</p>
+</li>
+<li>
+<p><code>ssh_file_transfer_method</code> (string) - <code>scp</code> or <code>sftp</code> - How to transfer files, Secure copy (default) or SSH
+  File Transfer Protocol.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Guests using Windows with Win32-OpenSSH v9.1.0.0p1-Beta, scp
+(the default protocol for copying data) returns a a non-zero error code since the MOTW
+cannot be set, which cause any file transfer to fail. As a workaround you can override the transfer protocol
+with SFTP instead <code>ssh_file_transfer_method = "sftp"</code>.</p>
+</div>
+</li>
+<li>
+<p><code>ssh_proxy_host</code> (string) - A SOCKS proxy host to use for SSH connection</p>
+</li>
+<li><code>ssh_proxy_port</code> (int) - A port of the SOCKS proxy. Defaults to <code>1080</code>.</li>
+<li><code>ssh_proxy_username</code> (string) - The optional username to authenticate with the proxy server.</li>
+<li><code>ssh_proxy_password</code> (string) - The optional password to use to authenticate with the proxy server.</li>
+<li>
+<p><code>ssh_keep_alive_interval</code> (duration string | ex: "1h5m2s") - How often to send "keep alive" messages to the server. Set to a negative
+  value (<code>-1s</code>) to disable. Example value: <code>10s</code>. Defaults to <code>5s</code>.</p>
+</li>
+<li>
+<p><code>ssh_read_write_timeout</code> (duration string | ex: "1h5m2s") - The amount of time to wait for a remote command to end. This might be
+  useful if, for example, packer hangs on a connection after a reboot.
+  Example: <code>5m</code>. Disabled by default.</p>
+</li>
+<li>
+<p><code>ssh_remote_tunnels</code> ([]string) - Remote tunnels forward a port from your local machine to the instance.
+  Format: ["REMOTE_PORT:LOCAL_HOST:LOCAL_PORT"]
+  Example: "9090:localhost:80" forwards localhost:9090 on your machine to port 80 on the instance.</p>
+</li>
+<li>
+<p><code>ssh_local_tunnels</code> ([]string) - Local tunnels forward a port from the instance to your local machine.
+  Format: ["LOCAL_PORT:REMOTE_HOST:REMOTE_PORT"]
+  Example: "8080:localhost:3000" allows the instance to access your local machine’s port 3000 via localhost:8080.</p>
+</li>
+<li>
+<p><code>temporary_key_pair_type</code> (string) - <code>dsa</code> | <code>ecdsa</code> | <code>ed25519</code> | <code>rsa</code> ( the default )
+  Specifies the type of key to create. The possible values are 'dsa',
+  'ecdsa', 'ed25519', or 'rsa'.
+  NOTE: DSA is deprecated and no longer recognized as secure, please
+  consider other alternatives like RSA or ED25519.</p>
+</li>
+<li>
+<p><code>temporary_key_pair_bits</code> (int) - Specifies the number of bits in the key to create. For RSA keys, the
+  minimum size is 1024 bits and the default is 4096 bits. Generally, 3072
+  bits is considered sufficient. DSA keys must be exactly 1024 bits as
+  specified by FIPS 186-2. For ECDSA keys, bits determines the key length
+  by selecting from one of three elliptic curve sizes: 256, 384 or 521
+  bits. Attempting to use bit lengths other than these three values for
+  ECDSA keys will fail. Ed25519 keys have a fixed length and bits will be
+  ignored.
+  NOTE: DSA is deprecated and no longer recognized as secure as specified
+  by FIPS 186-5, please consider other alternatives like RSA or ED25519.</p>
+</li>
+</ul>
+<h5 id="windows-remote-management-winrm">Windows Remote Management (WinRM)<a class="headerlink" href="#windows-remote-management-winrm" title="Permanent link">&para;</a></h5>
+<ul>
+<li><code>winrm_username</code> (string) - The username to use to connect to WinRM.</li>
+<li><code>winrm_password</code> (string) - The password to use to connect to WinRM.</li>
+<li>
+<p><code>winrm_host</code> (string) - The address for WinRM to connect to.
+  NOTE: If using an Amazon EBS builder, you can specify the interface
+  WinRM connects to via
+  <a href="https://developer.hashicorp.com/packer/integrations/hashicorp/amazon/latest/components/builder/ebs#ssh_interface"><code>ssh_interface</code></a></p>
+</li>
+<li>
+<p><code>winrm_no_proxy</code> (bool) - Setting this to <code>true</code> adds the remote
+  <code>host:port</code> to the <code>NO_PROXY</code> environment variable. This has the effect of
+  bypassing any configured proxies when connecting to the remote host.
+  Default to <code>false</code>.</p>
+</li>
+<li>
+<p><code>winrm_port</code> (int) - The WinRM port to connect to. This defaults to <code>5985</code> for plain
+  unencrypted connection and <code>5986</code> for SSL when <code>winrm_use_ssl</code> is set to
+  true.</p>
+</li>
+<li>
+<p><code>winrm_timeout</code> (duration string | ex: "1h5m2s") - The amount of time to wait for WinRM to become available. This defaults
+  to <code>30m</code> since setting up a Windows machine generally takes a long time.</p>
+</li>
+<li>
+<p><code>winrm_use_ssl</code> (bool) - If <code>true</code>, use HTTPS for WinRM.</p>
+</li>
+<li><code>winrm_insecure</code> (bool) - If <code>true</code>, do not check server certificate chain and host name.</li>
+<li><code>winrm_use_ntlm</code> (boolean) - If <code>true</code>, NTLMv2 authentication (with session security) will be used
+  for WinRM, rather than default (basic authentication), removing the
+  requirement for basic authentication to be enabled within the target
+  guest. Further reading for remote connection authentication can be found
+  <a href="https://msdn.microsoft.com/en-us/library/aa384295(v=vs.85).aspx">here</a>.</li>
+</ul>
+<h3 id="ssh-key-pair-automation">SSH Key Pair Automation<a class="headerlink" href="#ssh-key-pair-automation" title="Permanent link">&para;</a></h3>
+<p>The builders can inject the current SSH key pair's public key into the template
+using the <code>SSHPublicKey</code> template engine. This is the SSH public key as a line
+in OpenSSH <code>authorized_keys</code> format.</p>
+<p>When a private key is provided using <code>ssh_private_key_file</code>, the key's
+corresponding public key can be accessed using the above engine.</p>
+<ul>
+<li><code>ssh_private_key_file</code> (string) - Path to a PEM encoded private key file to use to authenticate with SSH.
+  The <code>~</code> can be used in path and will be expanded to the home directory
+  of current user.</li>
+</ul>
+<p>If <code>ssh_password</code> and <code>ssh_private_key_file</code> are not specified, Packer will
+automatically generate en ephemeral key pair. The key pair's public key can be
+accessed using the template engine.</p>
+<p>For example, the public key can be provided in the boot command as a URL encoded
+string by appending <code>| urlquery</code> to the variable:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">HCL</label><label for="__tabbed_5_2">JSON</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-hcl highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="na">boot_command</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">  </span><span class="s2">&quot;&lt;up&gt;&lt;wait&gt;&lt;tab&gt; text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg PACKER_USER={{ user `username` }} PACKER_AUTHORIZED_KEY={{ .SSHPublicKey | urlquery }}&lt;enter&gt;&quot;</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="p">]</span>
+</span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-json highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="nt">&quot;boot_command&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="w">  </span><span class="s2">&quot;&lt;up&gt;&lt;wait&gt;&lt;tab&gt; text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg PACKER_USER={{ user `username` }} PACKER_AUTHORIZED_KEY={{ .SSHPublicKey | urlquery }}&lt;enter&gt;&quot;</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="p">]</span>
+</span></code></pre></div>
+</div>
+</div>
+</div>
+<p>A kickstart can use those fields from the kernel command line by decoding the
+URL-encoded public key:</p>
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>%post
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="c1"># Newly created users need the file/folder framework for SSH key authentication.</span>
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="nb">umask</span><span class="w"> </span><span class="m">0077</span>
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>mkdir<span class="w"> </span>/etc/skel/.ssh
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>touch<span class="w"> </span>/etc/skel/.ssh/authorized_keys
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>
+</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a><span class="c1"># Loop over the command line. Set interesting variables.</span>
+</span><span id="__span-15-9"><a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a><span class="k">for</span><span class="w"> </span>x<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>cat<span class="w"> </span>/proc/cmdline<span class="k">)</span>
+</span><span id="__span-15-10"><a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a><span class="k">do</span>
+</span><span id="__span-15-11"><a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a><span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="nv">$x</span><span class="w"> </span><span class="k">in</span>
+</span><span id="__span-15-12"><a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a><span class="w">    </span><span class="nv">PACKER_USER</span><span class="o">=</span>*<span class="o">)</span>
+</span><span id="__span-15-13"><a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a><span class="w">      </span><span class="nv">PACKER_USER</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">x</span><span class="p">#*=</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span id="__span-15-14"><a id="__codelineno-15-14" name="__codelineno-15-14" href="#__codelineno-15-14"></a><span class="w">      </span><span class="p">;;</span>
+</span><span id="__span-15-15"><a id="__codelineno-15-15" name="__codelineno-15-15" href="#__codelineno-15-15"></a><span class="w">    </span><span class="nv">PACKER_AUTHORIZED_KEY</span><span class="o">=</span>*<span class="o">)</span>
+</span><span id="__span-15-16"><a id="__codelineno-15-16" name="__codelineno-15-16" href="#__codelineno-15-16"></a><span class="w">      </span><span class="c1"># URL decode $encoded into $PACKER_AUTHORIZED_KEY</span>
+</span><span id="__span-15-17"><a id="__codelineno-15-17" name="__codelineno-15-17" href="#__codelineno-15-17"></a><span class="w">      </span><span class="nv">encoded</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">x</span><span class="p">#*=</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span><span class="s1">&#39;+&#39;</span><span class="w"> </span><span class="s1">&#39; &#39;</span><span class="k">)</span>
+</span><span id="__span-15-18"><a id="__codelineno-15-18" name="__codelineno-15-18" href="#__codelineno-15-18"></a><span class="w">      </span><span class="nb">printf</span><span class="w"> </span>-v<span class="w"> </span>PACKER_AUTHORIZED_KEY<span class="w"> </span><span class="s1">&#39;%b&#39;</span><span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">encoded</span><span class="p">//%/</span><span class="se">\\</span><span class="nv">x</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span id="__span-15-19"><a id="__codelineno-15-19" name="__codelineno-15-19" href="#__codelineno-15-19"></a><span class="w">      </span><span class="p">;;</span>
+</span><span id="__span-15-20"><a id="__codelineno-15-20" name="__codelineno-15-20" href="#__codelineno-15-20"></a><span class="w">  </span><span class="k">esac</span>
+</span><span id="__span-15-21"><a id="__codelineno-15-21" name="__codelineno-15-21" href="#__codelineno-15-21"></a><span class="k">done</span>
+</span><span id="__span-15-22"><a id="__codelineno-15-22" name="__codelineno-15-22" href="#__codelineno-15-22"></a>
+</span><span id="__span-15-23"><a id="__codelineno-15-23" name="__codelineno-15-23" href="#__codelineno-15-23"></a><span class="c1"># Create/configure packer user, if any.</span>
+</span><span id="__span-15-24"><a id="__codelineno-15-24" name="__codelineno-15-24" href="#__codelineno-15-24"></a><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PACKER_USER</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span>
+</span><span id="__span-15-25"><a id="__codelineno-15-25" name="__codelineno-15-25" href="#__codelineno-15-25"></a><span class="k">then</span>
+</span><span id="__span-15-26"><a id="__codelineno-15-26" name="__codelineno-15-26" href="#__codelineno-15-26"></a><span class="w">  </span>useradd<span class="w"> </span><span class="nv">$PACKER_USER</span>
+</span><span id="__span-15-27"><a id="__codelineno-15-27" name="__codelineno-15-27" href="#__codelineno-15-27"></a><span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;%</span><span class="nv">$PACKER_USER</span><span class="s2"> ALL=(ALL) NOPASSWD: ALL&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>/etc/sudoers.d/<span class="nv">$PACKER_USER</span>
+</span><span id="__span-15-28"><a id="__codelineno-15-28" name="__codelineno-15-28" href="#__codelineno-15-28"></a><span class="w">  </span><span class="o">[</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PACKER_AUTHORIZED_KEY</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$PACKER_AUTHORIZED_KEY</span><span class="w"> </span>&gt;&gt;<span class="w"> </span><span class="k">$(</span><span class="nb">eval</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span>~<span class="s2">&quot;</span><span class="nv">$PACKER_USER</span><span class="s2">&quot;</span><span class="k">)</span>/.ssh/authorized_keys
+</span><span id="__span-15-29"><a id="__codelineno-15-29" name="__codelineno-15-29" href="#__codelineno-15-29"></a><span class="k">fi</span>
+</span><span id="__span-15-30"><a id="__codelineno-15-30" name="__codelineno-15-30" href="#__codelineno-15-30"></a>
+</span><span id="__span-15-31"><a id="__codelineno-15-31" name="__codelineno-15-31" href="#__codelineno-15-31"></a>%end
+</span></code></pre></div>
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+      
+    </article>
+  </div>
+
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright © Broadcom. All Rights Reserved.<br/>The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.<br/>Licensed under the Mozilla Public License, version 2.0.
+    </div>
+  
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/vmware/packer-plugin-vmware" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M216.5 362.5c-66-8-112.5-55.5-112.5-117 0-25 9-52 24-70-6.5-16.5-5.5-51.5 2-66 20-2.5 47 8 63 22.5 19-6 39-9 63.5-9s44.5 3 62.5 8.5c15.5-14 43-24.5 63-22 7 13.5 8 48.5 1.5 65.5 16 19 24.5 44.5 24.5 70.5 0 61.5-46.5 108-113.5 116.5 17 11 28.5 35 28.5 62.5v52c0 15 12.5 23.5 27.5 17.5C441 459.5 512 369 512 257 512 115.5 397 0 255.5 0S0 115.5 0 257c0 111 70.5 203 165.5 237.5 13.5 5 26.5-4 26.5-17.5v-40c-7 3-16 5-24 5-33 0-52.5-18-66.5-51.5-5.5-13.5-11.5-21.5-23-23-6-.5-8-3-8-6 0-6 10-10.5 20-10.5 14.5 0 27 9 40 27.5 10 14.5 20.5 21 33 21s20.5-4.5 32-16c8.5-8.5 15-16 21-21"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate":null,"base":"../..","features":[],"search":"../../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":{"default":["latest","development"],"provider":"mike"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.ed145cee.min.js"></script>
+      
+        <script src="../../javascripts/version-slot.js"></script>
+      
+    
+  </body>
+</html>
