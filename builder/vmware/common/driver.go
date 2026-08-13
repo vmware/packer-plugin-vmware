@@ -125,9 +125,11 @@ const (
 	cdromAdapterSata = "sata"
 	cdromAdapterScsi = "scsi"
 
-	// USB version types.
+	// UsbVersion20 defines the USB version 2.0 for virtual machines.
 	UsbVersion20 = "2.0"
+	// UsbVersion31 defines the USB version 3.1 for virtual machines.
 	UsbVersion31 = "3.1"
+	// UsbVersion32 defines the USB version 3.2 for virtual machines.
 	UsbVersion32 = "3.2"
 
 	// Shutdown operation timings.
