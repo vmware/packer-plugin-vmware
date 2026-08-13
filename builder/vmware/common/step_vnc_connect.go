@@ -41,26 +41,31 @@ func (s *StepVNCConnect) Run(ctx context.Context, state multistep.StateBag) mult
 }
 
 // ConnectVNC establishes a direct VNC connection to the virtual machine.
-func (s *StepVNCConnect) ConnectVNC(ctx context.Context, state multistep.StateBag) (*vnc.ClientConn, error) {
+func (s *StepVNCConnect) ConnectVNC(ctx context.Context, state multistep.StateBag) (c *vnc.ClientConn, err error) {
 	vncIp := state.Get("vnc_ip").(string)
 	vncPort := state.Get("vnc_port").(int)
 	vncPassword := state.Get("vnc_password")
 
 	nc, err := net.Dial("tcp", net.JoinHostPort(vncIp, fmt.Sprintf("%d", vncPort)))
 	if err != nil {
-		err := fmt.Errorf("error connecting to VNC: %s", err)
+		err = fmt.Errorf("error connecting to VNC: %s", err)
 		state.Put("error", err)
 		return nil, err
 	}
+	defer func() {
+		if c == nil {
+			_ = nc.Close()
+		}
+	}()
 
 	auth := []vnc.ClientAuth{new(vnc.ClientAuthNone)}
 	if vncPassword != nil && len(vncPassword.(string)) > 0 {
 		auth = []vnc.ClientAuth{&vnc.PasswordAuth{Password: vncPassword.(string)}}
 	}
 
-	c, err := vnc.ClientWithContext(ctx, nc, &vnc.ClientConfig{Auth: auth, Exclusive: true})
+	c, err = vnc.ClientWithContext(ctx, nc, &vnc.ClientConfig{Auth: auth, Exclusive: true})
 	if err != nil {
-		err := fmt.Errorf("error handshaking with VNC: %s", err)
+		err = fmt.Errorf("error handshaking with VNC: %s", err)
 		state.Put("error", err)
 		return nil, err
 	}
