@@ -360,7 +360,7 @@ func checkNetmapConfExists() (NetworkNameMapper, error) {
 		return nil, err
 	}
 
-	defer fd.Close()
+	defer func() { _ = fd.Close() }()
 
 	// Pass the handle to the networking configuration parser.
 	return ReadNetworkingConfig(fd)

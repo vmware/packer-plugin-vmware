@@ -267,7 +267,7 @@ func TestBuilderPrepare_OutputDir(t *testing.T) {
 	if err != nil {
 		t.Fatalf("err: %s", err)
 	}
-	defer os.RemoveAll(dir)
+	defer func() { _ = os.RemoveAll(dir) }()
 
 	config["output_directory"] = dir
 	b = Builder{}
@@ -355,8 +355,8 @@ func TestBuilderPrepare_VMXTemplatePath(t *testing.T) {
 	if err != nil {
 		t.Fatalf("err: %s", err)
 	}
-	defer os.Remove(tf.Name())
-	defer tf.Close()
+	defer func() { _ = os.Remove(tf.Name()) }()
+	defer func() { _ = tf.Close() }()
 
 	if _, err := tf.Write([]byte("HELLO!")); err != nil {
 		t.Fatalf("err: %s", err)
@@ -377,8 +377,8 @@ func TestBuilderPrepare_VMXTemplatePath(t *testing.T) {
 	if err != nil {
 		t.Fatalf("err: %s", err)
 	}
-	defer os.Remove(tf2.Name())
-	defer tf2.Close()
+	defer func() { _ = os.Remove(tf2.Name()) }()
+	defer func() { _ = tf2.Close() }()
 
 	if _, err := tf2.Write([]byte("{{foo}")); err != nil {
 		t.Fatalf("err: %s", err)

@@ -432,7 +432,7 @@ func ReadNetmapConfig(path string) (NetworkMap, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer fd.Close()
+	defer func() { _ = fd.Close() }()
 	return ReadNetworkMap(fd)
 }
 
@@ -442,7 +442,7 @@ func ReadDhcpConfig(path string) (DhcpConfiguration, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer fd.Close()
+	defer func() { _ = fd.Close() }()
 	return ReadDhcpConfiguration(fd)
 }
 
@@ -452,7 +452,7 @@ func readVMXConfig(path string) (map[string]string, error) {
 	if err != nil {
 		return map[string]string{}, err
 	}
-	defer f.Close()
+	defer func() { _ = f.Close() }()
 
 	vmxBytes, err := io.ReadAll(f)
 	if err != nil {
@@ -730,7 +730,7 @@ func (d *VmwareDriver) HostIP(state multistep.StateBag) (string, error) {
 func getHostIPForBridgedNetwork() (string, error) {
 	// Determine the source IP used for default-route communications.
 	if conn, err := net.Dial("udp4", "1.1.1.1:53"); err == nil {
-		defer conn.Close()
+		defer func() { _ = conn.Close() }()
 		if addr, ok := conn.LocalAddr().(*net.UDPAddr); ok {
 			log.Printf("[INFO] Discovered host IP address for bridged network using default route: %s", addr.IP)
 			return addr.IP.String(), nil

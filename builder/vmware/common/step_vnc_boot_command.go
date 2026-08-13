@@ -45,7 +45,7 @@ func (s *StepVNCBootCommand) Run(ctx context.Context, state multistep.StateBag) 
 	httpPort := state.Get("http_port").(int)
 	ui := state.Get("ui").(packersdk.Ui)
 	conn := state.Get("vnc_conn").(*vnc.ClientConn)
-	defer conn.Close()
+	defer func() { _ = conn.Close() }()
 
 	// Wait the for the virtual machine to boot.
 	if int64(s.Config.BootWait) > 0 {

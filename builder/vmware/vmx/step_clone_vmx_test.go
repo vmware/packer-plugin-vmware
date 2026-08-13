@@ -33,7 +33,7 @@ func TestStepCloneVMX(t *testing.T) {
 	if err != nil {
 		t.Fatalf("err: %s", err)
 	}
-	defer os.RemoveAll(td)
+	defer func() { _ = os.RemoveAll(td) }()
 
 	// Set up mock vmx file contents
 	var testCloneVMX = fmt.Sprintf("scsi0:0.filename = \"%s\"\n"+

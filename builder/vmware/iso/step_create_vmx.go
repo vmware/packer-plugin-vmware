@@ -101,7 +101,7 @@ func (s *stepCreateVMX) Run(ctx context.Context, state multistep.StateBag) multi
 			ui.Error(err.Error())
 			return multistep.ActionHalt
 		}
-		defer f.Close()
+		defer func() { _ = f.Close() }()
 
 		rawBytes, err := io.ReadAll(f)
 		if err != nil {
@@ -389,7 +389,7 @@ func (s *stepCreateVMX) Run(ctx context.Context, state multistep.StateBag) multi
 // Cleanup removes any temporary directories created during VMX file generation.
 func (s *stepCreateVMX) Cleanup(multistep.StateBag) {
 	if s.tempDir != "" {
-		os.RemoveAll(s.tempDir)
+		_ = os.RemoveAll(s.tempDir)
 	}
 }
 

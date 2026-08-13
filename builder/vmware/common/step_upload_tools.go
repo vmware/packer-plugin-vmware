@@ -49,7 +49,7 @@ func (c *StepUploadTools) Run(ctx context.Context, state multistep.StateBag) mul
 		state.Put("error", fmt.Errorf("error opening VMware Tools ISO: %s", err))
 		return multistep.ActionHalt
 	}
-	defer f.Close()
+	defer func() { _ = f.Close() }()
 
 	// Interpolate upload path template if using flavor
 	if c.ToolsUploadFlavor != "" {

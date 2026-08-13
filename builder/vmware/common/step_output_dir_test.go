@@ -17,7 +17,7 @@ func testOutputDir(t *testing.T) string {
 	if err != nil {
 		t.Fatalf("err: %s", err)
 	}
-	os.RemoveAll(td)
+	_ = os.RemoveAll(td)
 
 	return td
 }
@@ -41,7 +41,7 @@ func TestStepOutputDir(t *testing.T) {
 		VMName:       "testVM",
 	}
 	// Delete the test output directory when done
-	defer os.RemoveAll(td)
+	defer func() { _ = os.RemoveAll(td) }()
 
 	// Test the run
 	if action := step.Run(context.Background(), state); action != multistep.ActionContinue {
@@ -74,13 +74,13 @@ func TestStepOutputDir_existsNoForce(t *testing.T) {
 		VMName:       "testVM",
 	}
 	// Delete the test output directory when done
-	defer os.RemoveAll(td)
+	defer func() { _ = os.RemoveAll(td) }()
 
 	// Make sure the dir exists
 	if err := os.MkdirAll(td, 0755); err != nil {
 		t.Fatalf("err: %s", err)
 	}
-	defer os.RemoveAll(td)
+	defer func() { _ = os.RemoveAll(td) }()
 
 	// Test the run
 	if action := step.Run(context.Background(), state); action != multistep.ActionHalt {
@@ -112,13 +112,13 @@ func TestStepOutputDir_existsForce(t *testing.T) {
 	step.Force = true
 
 	// Delete the test output directory when done
-	defer os.RemoveAll(td)
+	defer func() { _ = os.RemoveAll(td) }()
 
 	// Make sure the dir exists
 	if err := os.MkdirAll(td, 0755); err != nil {
 		t.Fatalf("err: %s", err)
 	}
-	defer os.RemoveAll(td)
+	defer func() { _ = os.RemoveAll(td) }()
 
 	// Test the run
 	if action := step.Run(context.Background(), state); action != multistep.ActionContinue {

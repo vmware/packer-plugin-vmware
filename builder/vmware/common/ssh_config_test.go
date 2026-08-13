@@ -57,8 +57,8 @@ func TestSSHConfigPrepare_SSHPrivateKey(t *testing.T) {
 	if err != nil {
 		t.Fatalf("err: %s", err)
 	}
-	defer os.Remove(tf.Name())
-	defer tf.Close()
+	defer func() { _ = os.Remove(tf.Name()) }()
+	defer func() { _ = tf.Close() }()
 
 	if _, err := tf.Write([]byte("HELLO!")); err != nil {
 		t.Fatalf("err: %s", err)
@@ -72,12 +72,15 @@ func TestSSHConfigPrepare_SSHPrivateKey(t *testing.T) {
 	}
 
 	// Test good contents
-	//nolint
-	tf.Seek(0, 0)
-	//nolint
-	tf.Truncate(0)
-	//nolint
-	tf.Write([]byte(testPem))
+	if _, err := tf.Seek(0, 0); err != nil {
+		t.Fatalf("err: %s", err)
+	}
+	if err := tf.Truncate(0); err != nil {
+		t.Fatalf("err: %s", err)
+	}
+	if _, err := tf.Write([]byte(testPem)); err != nil {
+		t.Fatalf("err: %s", err)
+	}
 	c = testSSHConfig()
 	c.Comm.SSHPrivateKeyFile = tf.Name()
 	errs = c.Prepare(interpolate.NewContext())

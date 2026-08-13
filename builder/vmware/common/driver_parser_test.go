@@ -352,7 +352,7 @@ parameters : map[default-lease-time:1800 max-lease-time:7200]
 	if err != nil {
 		t.Fatalf("Failed to open dhcpd.conf sample: %s", err)
 	}
-	defer f.Close()
+	defer func() { _ = f.Close() }()
 
 	config, err := ReadDhcpConfiguration(f)
 	if err != nil {
@@ -422,7 +422,7 @@ func TestParserReadNetworkMap(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Unable to open netmap.conf sample: %s", err)
 	}
-	defer f.Close()
+	defer func() { _ = f.Close() }()
 
 	netmap, err := ReadNetworkMap(f)
 	if err != nil {
@@ -760,7 +760,7 @@ func TestParserReadDhcpdLeases(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Unable to open dhcpd.leases sample: %s", err)
 	}
-	defer f.Close()
+	defer func() { _ = f.Close() }()
 
 	results, err := ReadDhcpdLeaseEntries(f)
 	if err != nil {
@@ -945,7 +945,7 @@ func TestParserReadAppleDhcpdLeases(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Unable to open dhcpd.leases sample: %s", err)
 	}
-	defer f.Close()
+	defer func() { _ = f.Close() }()
 
 	results, err := ReadAppleDhcpdLeaseEntries(f)
 	if err != nil {
@@ -1211,7 +1211,7 @@ func TestParserReadNetworingConfig(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Unable to open networking-example sample: %s", err)
 	}
-	defer f.Close()
+	defer func() { _ = f.Close() }()
 
 	config, err := ReadNetworkingConfig(f)
 	if err != nil {

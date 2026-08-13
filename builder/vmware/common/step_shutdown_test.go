@@ -20,7 +20,7 @@ func testLocalOutputDir(t *testing.T) *LocalOutputDir {
 	if err != nil {
 		t.Fatalf("err: %s", err)
 	}
-	os.RemoveAll(td)
+	_ = os.RemoveAll(td)
 
 	result := new(LocalOutputDir)
 	result.SetOutputDir(td)
@@ -165,7 +165,7 @@ func TestStepShutdown_locks(t *testing.T) {
 	// Remove the lock file after a certain time
 	go func() {
 		time.Sleep(100 * time.Millisecond)
-		os.Remove(lockPath)
+		_ = os.Remove(lockPath)
 	}()
 
 	resultCh := make(chan multistep.StepAction, 1)
