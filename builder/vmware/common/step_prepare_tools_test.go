@@ -21,8 +21,10 @@ func TestStepPrepareTools(t *testing.T) {
 	if err != nil {
 		t.Fatalf("err: %s", err)
 	}
-	tf.Close()
-	defer os.Remove(tf.Name())
+	if err := tf.Close(); err != nil {
+		t.Fatalf("err: %s", err)
+	}
+	defer func() { _ = os.Remove(tf.Name()) }()
 
 	state := testState(t)
 	step := &StepPrepareTools{
@@ -195,8 +197,10 @@ func TestStepPrepareTools_AttachMode_Flavor(t *testing.T) {
 	if err != nil {
 		t.Fatalf("err: %s", err)
 	}
-	tf.Close()
-	defer os.Remove(tf.Name())
+	if err := tf.Close(); err != nil {
+		t.Fatalf("err: %s", err)
+	}
+	defer func() { _ = os.Remove(tf.Name()) }()
 
 	state := testState(t)
 	step := &StepPrepareTools{
@@ -275,8 +279,10 @@ func TestStepPrepareTools_BackwardCompatibility(t *testing.T) {
 	if err != nil {
 		t.Fatalf("err: %s", err)
 	}
-	tf.Close()
-	defer os.Remove(tf.Name())
+	if err := tf.Close(); err != nil {
+		t.Fatalf("err: %s", err)
+	}
+	defer func() { _ = os.Remove(tf.Name()) }()
 
 	state := testState(t)
 	step := &StepPrepareTools{

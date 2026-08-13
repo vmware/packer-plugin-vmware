@@ -52,7 +52,10 @@ func (s *StepConfigureVNC) VNCAddress(ctx context.Context, vncBindAddress string
 		return "", 0, err
 	}
 
-	s.l.Listener.Close() // free port, but don't unlock lock file
+	// Free the port, but don't unlock the lock file.
+	if err := s.l.Listener.Close(); err != nil {
+		return "", 0, err
+	}
 	return s.l.Address, s.l.Port, nil
 }
 

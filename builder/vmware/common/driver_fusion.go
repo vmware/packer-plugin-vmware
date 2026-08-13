@@ -299,7 +299,7 @@ func (d *FusionDriver) Verify() error {
 		if err != nil {
 			return nil, err
 		}
-		defer fd.Close()
+		defer func() { _ = fd.Close() }()
 
 		return ReadNetworkingConfig(fd)
 	}

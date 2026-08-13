@@ -225,6 +225,8 @@ func (s *StepCloneVMX) Run(ctx context.Context, state multistep.StateBag) multis
 // Cleanup removes any temporary directories created during the cloning process.
 func (s *StepCloneVMX) Cleanup(state multistep.StateBag) {
 	if s.tempDir != "" {
-		os.RemoveAll(s.tempDir)
+		if err := os.RemoveAll(s.tempDir); err != nil {
+			log.Printf("[WARN] failed to remove temporary directory %s: %s", s.tempDir, err)
+		}
 	}
 }

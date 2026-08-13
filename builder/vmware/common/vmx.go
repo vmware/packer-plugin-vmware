@@ -73,7 +73,7 @@ func EncodeVMX(contents map[string]string) string {
 		for _, c := range caseSensitive {
 			key = strings.Replace(key, strings.ToLower(c), c, 1)
 		}
-		fmt.Fprintf(&buf, pat, key, contents[k])
+		_, _ = fmt.Fprintf(&buf, pat, key, contents[k])
 	}
 
 	return buf.String()
@@ -86,10 +86,14 @@ func WriteVMX(path string, data map[string]string) (err error) {
 	if err != nil {
 		return
 	}
-	defer f.Close()
+	defer func() {
+		if cerr := f.Close(); cerr != nil && err == nil {
+			err = cerr
+		}
+	}()
 
 	var buf bytes.Buffer
-	buf.WriteString(EncodeVMX(data))
+	_, _ = buf.WriteString(EncodeVMX(data))
 	if _, err = io.Copy(f, &buf); err != nil {
 		return
 	}

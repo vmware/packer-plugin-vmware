@@ -24,7 +24,9 @@ func testVMXFile(t *testing.T) string {
 	if err != nil {
 		t.Fatalf("error writing .vmx file: %s", err)
 	}
-	tf.Close()
+	if err := tf.Close(); err != nil {
+		t.Fatalf("err: %s", err)
+	}
 
 	return tf.Name()
 }
@@ -41,7 +43,7 @@ func TestStepConfigureVMX(t *testing.T) {
 	}
 
 	vmxPath := testVMXFile(t)
-	defer os.Remove(vmxPath)
+	defer func() { _ = os.Remove(vmxPath) }()
 	state.Put("vmx_path", vmxPath)
 
 	// Test the run
@@ -92,7 +94,7 @@ func TestStepConfigureVMX_floppyPath(t *testing.T) {
 	step := new(StepConfigureVMX)
 
 	vmxPath := testVMXFile(t)
-	defer os.Remove(vmxPath)
+	defer func() { _ = os.Remove(vmxPath) }()
 
 	state.Put("floppy_path", "foo")
 	state.Put("vmx_path", vmxPath)
@@ -140,7 +142,7 @@ func TestStepConfigureVMX_generatedAddresses(t *testing.T) {
 	step := new(StepConfigureVMX)
 
 	vmxPath := testVMXFile(t)
-	defer os.Remove(vmxPath)
+	defer func() { _ = os.Remove(vmxPath) }()
 
 	additionalTestVmxData := []struct {
 		Key   string
@@ -216,7 +218,7 @@ func TestStepConfigureVMX_displayNameMissing(t *testing.T) {
 
 	// testVMXFile adds displayName key/value pair to the VMX
 	vmxPath := testVMXFile(t)
-	defer os.Remove(vmxPath)
+	defer func() { _ = os.Remove(vmxPath) }()
 
 	// Bad: Delete displayName from the VMX/Create an empty VMX file
 	err := WriteVMX(vmxPath, map[string]string{})
@@ -242,7 +244,7 @@ func TestStepConfigureVMX_displayNameStore(t *testing.T) {
 
 	// testVMXFile adds displayName key/value pair to the VMX
 	vmxPath := testVMXFile(t)
-	defer os.Remove(vmxPath)
+	defer func() { _ = os.Remove(vmxPath) }()
 
 	state.Put("vmx_path", vmxPath)
 
@@ -388,7 +390,7 @@ func TestStepConfigureVMX_CDROMAdapter(t *testing.T) {
 	}
 
 	vmxPath := testVMXFile(t)
-	defer os.Remove(vmxPath)
+	defer func() { _ = os.Remove(vmxPath) }()
 	state.Put("vmx_path", vmxPath)
 	state.Put("temporaryDevices", []string{})
 

@@ -53,8 +53,10 @@ func TestNewConfig_sourcePath(t *testing.T) {
 	if err != nil {
 		t.Fatalf("err: %s", err)
 	}
-	tf.Close()
-	defer os.Remove(tf.Name())
+	if err := tf.Close(); err != nil {
+		t.Fatalf("err: %s", err)
+	}
+	defer func() { _ = os.Remove(tf.Name()) }()
 
 	cfg = testConfig(t)
 	cfg["source_path"] = tf.Name()

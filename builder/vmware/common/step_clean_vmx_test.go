@@ -21,7 +21,7 @@ func TestStepCleanVMX(t *testing.T) {
 	step := new(StepCleanVMX)
 
 	vmxPath := testVMXFile(t)
-	defer os.Remove(vmxPath)
+	defer func() { _ = os.Remove(vmxPath) }()
 	state.Put("vmx_path", vmxPath)
 
 	// Test the run
@@ -38,7 +38,7 @@ func TestStepCleanVMX_floppyPath(t *testing.T) {
 	step := new(StepCleanVMX)
 
 	vmxPath := testVMXFile(t)
-	defer os.Remove(vmxPath)
+	defer func() { _ = os.Remove(vmxPath) }()
 	if err := os.WriteFile(vmxPath, []byte(testVMXFloppyPath), 0644); err != nil { //nolint:gosec
 		t.Fatalf("err: %s", err)
 	}
@@ -91,7 +91,7 @@ func TestStepCleanVMX_isoPath(t *testing.T) {
 	step := new(StepCleanVMX)
 
 	vmxPath := testVMXFile(t)
-	defer os.Remove(vmxPath)
+	defer func() { _ = os.Remove(vmxPath) }()
 	if err := os.WriteFile(vmxPath, []byte(testVMXISOPath), 0644); err != nil { //nolint:gosec
 		t.Fatalf("err: %s", err)
 	}
@@ -147,7 +147,7 @@ func TestStepCleanVMX_ethernet(t *testing.T) {
 	}
 
 	vmxPath := testVMXFile(t)
-	defer os.Remove(vmxPath)
+	defer func() { _ = os.Remove(vmxPath) }()
 	if err := os.WriteFile(vmxPath, []byte(testVMXEthernet), 0644); err != nil { //nolint:gosec
 		t.Fatalf("err: %s", err)
 	}
@@ -226,7 +226,7 @@ func TestStepCleanVMX_toolsCDROM(t *testing.T) {
 	step := new(StepCleanVMX)
 
 	vmxPath := testVMXFile(t)
-	defer os.Remove(vmxPath)
+	defer func() { _ = os.Remove(vmxPath) }()
 	if err := os.WriteFile(vmxPath, []byte(testVMXToolsCDROM), 0644); err != nil { //nolint:gosec
 		t.Fatalf("err: %s", err)
 	}
@@ -292,7 +292,7 @@ func TestStepCleanVMX_toolsCDROMOnly(t *testing.T) {
 	step := new(StepCleanVMX)
 
 	vmxPath := testVMXFile(t)
-	defer os.Remove(vmxPath)
+	defer func() { _ = os.Remove(vmxPath) }()
 	if err := os.WriteFile(vmxPath, []byte(testVMXToolsCDROMOnly), 0644); err != nil { //nolint:gosec
 		t.Fatalf("err: %s", err)
 	}
@@ -352,7 +352,7 @@ func TestStepCleanVMX_noToolsCDROM(t *testing.T) {
 	step := new(StepCleanVMX)
 
 	vmxPath := testVMXFile(t)
-	defer os.Remove(vmxPath)
+	defer func() { _ = os.Remove(vmxPath) }()
 	if err := os.WriteFile(vmxPath, []byte(testVMXISOPath), 0644); err != nil { //nolint:gosec
 		t.Fatalf("err: %s", err)
 	}
@@ -403,7 +403,7 @@ func TestStepCleanVMX_preserveUserCDROM(t *testing.T) {
 	step := new(StepCleanVMX)
 
 	vmxPath := testVMXFile(t)
-	defer os.Remove(vmxPath)
+	defer func() { _ = os.Remove(vmxPath) }()
 	if err := os.WriteFile(vmxPath, []byte(testVMXMultipleCDROM), 0644); err != nil { //nolint:gosec
 		t.Fatalf("err: %s", err)
 	}

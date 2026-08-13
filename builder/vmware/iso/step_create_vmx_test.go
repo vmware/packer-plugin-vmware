@@ -30,7 +30,9 @@ func createFloppyOutput(prefix string) (string, map[string]string, error) {
 	if err != nil {
 		return "", map[string]string{}, errors.New("unable to create temp file")
 	}
-	f.Close()
+	if err := f.Close(); err != nil {
+		return "", map[string]string{}, err
+	}
 
 	output := f.Name()
 	outputFile := strings.ReplaceAll(output, "\\", "\\\\")
@@ -49,7 +51,7 @@ func readFloppyOutput(path string) (string, error) {
 	if err != nil {
 		return "", fmt.Errorf("unable to open file %s", path)
 	}
-	defer f.Close()
+	defer func() { _ = f.Close() }()
 	data, err := io.ReadAll(f)
 	if err != nil {
 		return "", fmt.Errorf("unable to read file: %s", err)
@@ -171,7 +173,9 @@ func TestStepCreateVmx_SerialPort(t *testing.T) {
 		Name: "vmware-iso_create_vmx_serial_port",
 		Teardown: func() error {
 			if _, err := os.Stat(output); err == nil {
-				os.Remove(output)
+				if err := os.Remove(output); err != nil {
+					return err
+				}
 			}
 			testutils.CleanupFiles("output-vmware-iso")
 			return nil
@@ -233,7 +237,9 @@ func TestStepCreateVmx_ParallelPort(t *testing.T) {
 		Name: "vmware-iso_create_vmx_parallel_port",
 		Teardown: func() error {
 			if _, err := os.Stat(output); err == nil {
-				os.Remove(output)
+				if err := os.Remove(output); err != nil {
+					return err
+				}
 			}
 			testutils.CleanupFiles("output-vmware-iso")
 			return nil
@@ -287,7 +293,9 @@ func TestStepCreateVmx_Usb(t *testing.T) {
 		Name: "vmware-iso_create_vmx_usb",
 		Teardown: func() error {
 			if _, err := os.Stat(output); err == nil {
-				os.Remove(output)
+				if err := os.Remove(output); err != nil {
+					return err
+				}
 			}
 			testutils.CleanupFiles("output-vmware-iso")
 			return nil
@@ -337,7 +345,7 @@ func TestStepCreateVmx_Sound(t *testing.T) {
 	}
 	defer func() {
 		if _, err := os.Stat(output); err == nil {
-			os.Remove(output)
+			_ = os.Remove(output)
 		}
 	}()
 
@@ -347,7 +355,9 @@ func TestStepCreateVmx_Sound(t *testing.T) {
 		Name: "vmware-iso_create_vmx_sound",
 		Teardown: func() error {
 			if _, err := os.Stat(output); err == nil {
-				os.Remove(output)
+				if err := os.Remove(output); err != nil {
+					return err
+				}
 			}
 			testutils.CleanupFiles("output-vmware-iso")
 			return nil
@@ -402,7 +412,9 @@ func TestStepCreateVmx_Usb3(t *testing.T) {
 		Name: "vmware-iso_create_vmx_usb3",
 		Teardown: func() error {
 			if _, err := os.Stat(output); err == nil {
-				os.Remove(output)
+				if err := os.Remove(output); err != nil {
+					return err
+				}
 			}
 			testutils.CleanupFiles("output-vmware-iso")
 			return nil
