@@ -420,7 +420,7 @@ func generateNetmapConfig() (string, error) {
 
 	if pathNetmap != "" {
 		return pathNetmap, nil
-	} else {
-		return "", fmt.Errorf("no valid path found for generating the network mapper configuration file")
 	}
+
+	return "", fmt.Errorf("no valid path found for generating the network mapper configuration file")
 }

@@ -115,9 +115,9 @@ func (s *StepConfigureVMX) Run(ctx context.Context, state multistep.StateBag) mu
 			state.Put("error", err)
 			ui.Error(err.Error())
 			return multistep.ActionHalt
-		} else {
-			state.Put("display_name", displayName)
 		}
+
+		state.Put("display_name", displayName)
 	}
 
 	// Set the extendedConfigFile setting for the .vmxf filename to the VMName
