@@ -2326,20 +2326,20 @@ func readDhcpdLeaseEntry(in chan byte) (entry *dhcpLeaseEntry, err error) {
 		return &dhcpLeaseEntry{extra: []string{res}}, fmt.Errorf("unable to parse lease entry (%#v)", string(lease))
 	}
 
-	if by, ok := <-ch; ok && by == '{' {
-		// If we found a lease match, and we're definitely beginning a lease
-		// entry, then create our storage.
-		entry = &dhcpLeaseEntry{address: matches[1]}
-
-	} else if ok {
-		// If we didn't see a starting brace, then this entry is mangled which
-		// means that we should probably bail.
-		return &dhcpLeaseEntry{address: matches[1]}, fmt.Errorf("missing parameters for lease entry %v", matches[1])
-
-	} else {
+	by, ok := <-ch
+	if !ok {
 		// If our channel is closed, so we bail "cleanly".
 		return nil, nil
 	}
+	if by != '{' {
+		// If we didn't see a starting brace, then this entry is mangled which
+		// means that we should probably bail.
+		return &dhcpLeaseEntry{address: matches[1]}, fmt.Errorf("missing parameters for lease entry %v", matches[1])
+	}
+
+	// If we found a lease match, and we're definitely beginning a lease
+	// entry, then create our storage.
+	entry = &dhcpLeaseEntry{address: matches[1]}
 
 	// Now we can parse the inside of the block.
 	for insideBraces := true; insideBraces; {
