@@ -8,7 +8,7 @@ require (
 	github.com/hashicorp/hcl/v2 v2.24.0
 	github.com/hashicorp/packer-plugin-sdk v0.6.10
 	github.com/stretchr/testify v1.11.1
-	github.com/tenthirtyam/go-vnc v1.0.0
+	github.com/tenthirtyam/go-vnc v1.0.1
 	github.com/zclconf/go-cty v1.16.4
 	golang.org/x/net v0.57.0
 	golang.org/x/sys v0.47.0
