@@ -46,7 +46,7 @@ func (s *StepVNCConnect) ConnectVNC(ctx context.Context, state multistep.StateBa
 	vncPort := state.Get("vnc_port").(int)
 	vncPassword := state.Get("vnc_password")
 
-	nc, err := net.Dial("tcp", fmt.Sprintf("%s:%d", vncIp, vncPort))
+	nc, err := net.Dial("tcp", net.JoinHostPort(vncIp, fmt.Sprintf("%d", vncPort)))
 	if err != nil {
 		err := fmt.Errorf("error connecting to VNC: %s", err)
 		state.Put("error", err)
