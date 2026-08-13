@@ -73,7 +73,7 @@ func EncodeVMX(contents map[string]string) string {
 		for _, c := range caseSensitive {
 			key = strings.Replace(key, strings.ToLower(c), c, 1)
 		}
-		buf.WriteString(fmt.Sprintf(pat, key, contents[k]))
+		fmt.Fprintf(&buf, pat, key, contents[k])
 	}
 
 	return buf.String()
