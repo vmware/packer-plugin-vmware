@@ -23,7 +23,7 @@ type artifact struct {
 
 	// StateData should store data such as GeneratedData
 	// to be shared with post-processors
-	StateData map[string]interface{}
+	StateData map[string]any
 }
 
 // BuilderId returns the unique identifier for the builder that created this artifact.
@@ -47,7 +47,7 @@ func (a *artifact) String() string {
 }
 
 // State retrieves configuration or state data associated with the artifact by name.
-func (a *artifact) State(name string) interface{} {
+func (a *artifact) State(name string) any {
 	if _, ok := a.StateData[name]; ok {
 		return a.StateData[name]
 	}
@@ -83,6 +83,6 @@ func NewArtifact(format string, vmName string, skipExport bool, state multistep.
 		dir:       dir,
 		f:         files,
 		config:    config,
-		StateData: map[string]interface{}{"generated_data": state.Get("generated_data")},
+		StateData: map[string]any{"generated_data": state.Get("generated_data")},
 	}, nil
 }

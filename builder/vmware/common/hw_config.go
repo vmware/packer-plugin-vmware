@@ -186,7 +186,7 @@ func (c *HWConfig) Prepare(ctx *interpolate.Context) []error {
 }
 
 type ParallelUnion struct {
-	Union  interface{}
+	Union  any
 	File   *ParallelPortFile
 	Device *ParallelPortDevice
 	Auto   *ParallelPortAuto
@@ -293,7 +293,7 @@ type SerialConfigAuto struct {
 }
 
 type SerialUnion struct {
-	Union  interface{}
+	Union  any
 	Pipe   *SerialConfigPipe
 	File   *SerialConfigFile
 	Device *SerialConfigDevice

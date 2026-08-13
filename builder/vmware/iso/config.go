@@ -89,7 +89,7 @@ type Config struct {
 }
 
 // Prepare validates and sets default values for the ISO builder configuration.
-func (c *Config) Prepare(raws ...interface{}) ([]string, error) {
+func (c *Config) Prepare(raws ...any) ([]string, error) {
 	err := config.Decode(c, &config.DecodeOpts{
 		Interpolate:        true,
 		InterpolateContext: &c.ctx,

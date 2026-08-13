@@ -62,11 +62,11 @@ func readFloppyOutput(path string) (string, error) {
 
 // RenderConfig helps create dynamic packer template configs for parsing by
 // builderT without having to write the config to a file.
-func RenderConfig(builderConfig map[string]interface{}, provisionerConfig map[string]string) string {
+func RenderConfig(builderConfig map[string]any, provisionerConfig map[string]string) string {
 	// set up basic build template
-	t := map[string][]map[string]interface{}{
+	t := map[string][]map[string]any{
 		"builders": {
-			map[string]interface{}{
+			map[string]any{
 				"type":                        "vmware-iso",
 				"iso_url":                     "https://archive.org/download/ut-ttylinux-i686-12.6/ut-ttylinux-i686-12.6.iso",
 				"iso_checksum":                "md5:43c1feeae55a44c6ef694b8eb18408a6",
@@ -79,7 +79,7 @@ func RenderConfig(builderConfig map[string]interface{}, provisionerConfig map[st
 			},
 		},
 		"provisioners": {
-			map[string]interface{}{
+			map[string]any{
 				"type":   "shell",
 				"inline": []string{"echo hola mundo"},
 			},
@@ -105,7 +105,7 @@ func TestAccStepCreateVmx_SerialFile(t *testing.T) {
 	if err != nil {
 		t.Fatalf("unable to create temp file")
 	}
-	serialConfig := map[string]interface{}{
+	serialConfig := map[string]any{
 		"serial": fmt.Sprintf("file:%s", filepath.ToSlash(tmpfile.Name())),
 	}
 
@@ -152,7 +152,7 @@ func TestStepCreateVmx_SerialPort(t *testing.T) {
 		defaultSerial = "/dev/ttyS0"
 	}
 
-	config := map[string]interface{}{
+	config := map[string]any{
 		"serial": fmt.Sprintf("device:%s", filepath.ToSlash(defaultSerial)),
 	}
 	provision := map[string]string{
@@ -214,7 +214,7 @@ func TestStepCreateVmx_ParallelPort(t *testing.T) {
 		defaultParallel = "/dev/lp0"
 	}
 
-	config := map[string]interface{}{
+	config := map[string]any{
 		"parallel": fmt.Sprintf("device:%s,uni", filepath.ToSlash(defaultParallel)),
 	}
 	provision := map[string]string{
@@ -269,7 +269,7 @@ func TestStepCreateVmx_Usb(t *testing.T) {
 		t.Skip("This test is only run with PACKER_ACC=1 due to the requirement of access to the VMware binaries.")
 	}
 
-	config := map[string]interface{}{
+	config := map[string]any{
 		"usb": "TRUE",
 	}
 	provision := map[string]string{
@@ -323,7 +323,7 @@ func TestStepCreateVmx_Sound(t *testing.T) {
 		t.Skip("This test is only run with PACKER_ACC=1 due to the requirement of access to the VMware binaries.")
 	}
 
-	config := map[string]interface{}{
+	config := map[string]any{
 		"sound": "TRUE",
 	}
 	provision := map[string]string{
@@ -383,7 +383,7 @@ func TestStepCreateVmx_Usb3(t *testing.T) {
 		t.Skip("This test is only run with PACKER_ACC=1 due to the requirement of access to the VMware binaries.")
 	}
 
-	config := map[string]interface{}{
+	config := map[string]any{
 		"usb":         "TRUE",
 		"usb_version": common.UsbVersion31,
 	}

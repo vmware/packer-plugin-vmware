@@ -1538,7 +1538,7 @@ type networkingCommandEntryRemoveNatPrefix struct {
 }
 
 type networkingCommandEntry struct {
-	entry               interface{}
+	entry               any
 	answer              *networkingCommandEntryAnswer
 	removeAnswer        *networkingCommandEntryRemoveAnswer
 	addNatPortFwd       *networkingCommandEntryAddNatPortFwd
@@ -1605,7 +1605,7 @@ func (e networkingCommandEntry) Entry() reflect.Value {
 }
 
 func (e networkingCommandEntry) Repr() string {
-	result := make(map[string]interface{})
+	result := make(map[string]any)
 
 	entryN, entry := e.Name(), e.Entry()
 	entryT := entry.Type()

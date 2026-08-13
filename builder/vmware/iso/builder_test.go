@@ -18,8 +18,8 @@ import (
 	vmwcommon "github.com/vmware/packer-plugin-vmware/builder/vmware/common"
 )
 
-func testConfig() map[string]interface{} {
-	return map[string]interface{}{
+func testConfig() map[string]any {
+	return map[string]any{
 		"version":              21,
 		"iso_checksum":         "md5:0B0F137F17AC10944716020B018F8126",
 		"iso_url":              "http://www.packer.io",
@@ -520,13 +520,13 @@ func TestBuilderPrepare_CommConfig(t *testing.T) {
 func TestBuilderPrepare_ToolsMode(t *testing.T) {
 	testCases := []struct {
 		name        string
-		config      map[string]interface{}
+		config      map[string]any
 		expectError bool
 		errorMsg    string
 	}{
 		{
 			name: "valid attach mode with source path",
-			config: map[string]interface{}{
+			config: map[string]any{
 				"tools_mode":        "attach",
 				"tools_source_path": filepath.Join("..", "common", "testdata", "tools.iso"),
 			},
@@ -534,7 +534,7 @@ func TestBuilderPrepare_ToolsMode(t *testing.T) {
 		},
 		{
 			name: "valid upload mode with flavor",
-			config: map[string]interface{}{
+			config: map[string]any{
 				"tools_mode":          "upload",
 				"tools_upload_flavor": "linux",
 			},
@@ -542,7 +542,7 @@ func TestBuilderPrepare_ToolsMode(t *testing.T) {
 		},
 		{
 			name: "valid upload mode with custom source",
-			config: map[string]interface{}{
+			config: map[string]any{
 				"tools_mode":        "upload",
 				"tools_source_path": filepath.Join("..", "common", "testdata", "tools.iso"),
 				"tools_upload_path": "/tmp/custom-tools.iso",
@@ -551,14 +551,14 @@ func TestBuilderPrepare_ToolsMode(t *testing.T) {
 		},
 		{
 			name: "valid disable mode",
-			config: map[string]interface{}{
+			config: map[string]any{
 				"tools_mode": "disable",
 			},
 			expectError: false,
 		},
 		{
 			name: "invalid tools mode",
-			config: map[string]interface{}{
+			config: map[string]any{
 				"tools_mode": "invalid_mode",
 			},
 			expectError: true,
@@ -566,7 +566,7 @@ func TestBuilderPrepare_ToolsMode(t *testing.T) {
 		},
 		{
 			name: "attach mode missing source",
-			config: map[string]interface{}{
+			config: map[string]any{
 				"tools_mode": "attach",
 			},
 			expectError: true,
@@ -574,7 +574,7 @@ func TestBuilderPrepare_ToolsMode(t *testing.T) {
 		},
 		{
 			name: "attach mode conflicting config",
-			config: map[string]interface{}{
+			config: map[string]any{
 				"tools_mode":          "attach",
 				"tools_upload_flavor": "linux",
 				"tools_source_path":   filepath.Join("..", "common", "testdata", "tools.iso"),
@@ -584,7 +584,7 @@ func TestBuilderPrepare_ToolsMode(t *testing.T) {
 		},
 		{
 			name: "attach mode with upload flavor should fail",
-			config: map[string]interface{}{
+			config: map[string]any{
 				"tools_mode":          "attach",
 				"tools_upload_flavor": "linux",
 			},
