@@ -9,8 +9,8 @@ import (
 	"testing"
 )
 
-func testConfig(t *testing.T) map[string]interface{} {
-	return map[string]interface{}{
+func testConfig(t *testing.T) map[string]any {
+	return map[string]any{
 		"ssh_username":     "foo",
 		"shutdown_command": "foo",
 		"source_path":      "config_test.go",
