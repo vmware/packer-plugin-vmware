@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+      <url>
+        <loc>https://vmware.github.io/packer-plugin-vmware/2.1.5/</loc>
+      </url>
+      <url>
+        <loc>https://vmware.github.io/packer-plugin-vmware/2.1.5/builders/</loc>
+      </url>
+      <url>
+        <loc>https://vmware.github.io/packer-plugin-vmware/2.1.5/builders/iso/</loc>
+      </url>
+      <url>
+        <loc>https://vmware.github.io/packer-plugin-vmware/2.1.5/builders/vmx/</loc>
+      </url>
+      <url>
+        <loc>https://vmware.github.io/packer-plugin-vmware/2.1.5/community/</loc>
+      </url>
+      <url>
+        <loc>https://vmware.github.io/packer-plugin-vmware/2.1.5/community/support/</loc>
+      </url>
+      <url>
+        <loc>https://vmware.github.io/packer-plugin-vmware/2.1.5/community/contributing/</loc>
+      </url>
+      <url>
+        <loc>https://vmware.github.io/packer-plugin-vmware/2.1.5/community/code-of-conduct/</loc>
+      </url>
+      <url>
+        <loc>https://vmware.github.io/packer-plugin-vmware/2.1.5/community/release-verification/</loc>
+      </url>
+      <url>
+        <loc>https://vmware.github.io/packer-plugin-vmware/2.1.5/community/license/</loc>
+      </url>
+</urlset>
