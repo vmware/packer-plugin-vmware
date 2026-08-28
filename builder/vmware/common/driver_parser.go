@@ -15,6 +15,7 @@ import (
 	"os"
 	"reflect"
 	"regexp"
+	"slices"
 	"sort"
 	"strconv"
 	"strings"
@@ -956,12 +957,12 @@ func createDeclaration(node pDeclaration) ConfigDeclaration {
 	result.hostid = make([]pParameterClientMatch, 0)
 
 	// walk from globals to pDeclaration collecting all parameters
-	for i := len(hierarchy) - 1; i >= 0; i-- {
+	for i, h := range slices.Backward(hierarchy) {
 		result.composites = append(result.composites, hierarchy[(len(hierarchy)-1)-i])
 		result.id = append(result.id, hierarchy[(len(hierarchy)-1)-i].id)
 
 		// update configDeclaration parameters
-		for _, p := range hierarchy[i].parameters {
+		for _, p := range h.parameters {
 			switch p := p.(type) {
 			case pParameterOption:
 				result.options[p.name] = p.value
