@@ -9,9 +9,5 @@ supported by the project maintainers and the plugin community.
 
 --8<-- "community/issues-guidance.md"
 
-:lucide-messages-square: You can also start a [discussion][discussions] to ask
-questions or share ideas.
-
-[discussions]: https://github.com/vmware/packer-plugin-vmware/discussions
+[gh-discussions]: https://github.com/vmware/packer-plugin-vmware/discussions
 [gh-issues]: https://github.com/vmware/packer-plugin-vmware/issues
-[product-lifecycle]: https://support.broadcom.com/group/ecx/productlifecycle

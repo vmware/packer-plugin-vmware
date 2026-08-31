@@ -1,24 +1,19 @@
-## Issues
+## Reporting
 
-Use [GitHub issues][gh-issues] to report bugs or suggest enhancements using the
-following guidelines.
+Please use [GitHub Discussions][gh-discussions] for all triage, ideas, and
+general project discussion.
 
-!!! warning
+GitHub Issues are **reserved** for maintainer-tracked work items. Discussions
+that turn into confirmed issues or accepted ideas will have a linked issue
+created by a maintainer.
 
-    Issues that do not follow the guidelines may be closed by the maintainers without
-    further investigation.
-
-Before opening an issue, please [search existing issues](https://github.com/vmware/packer-plugin-vmware/issues?q=is%3Aissue+is%3Aopen+label%3Abug)
-to avoid duplicates.
-
-When opening an issue, use the provided issue form to ensure that you provide all the
-necessary details. These details are important for maintainers to understand and
-reproduce the issue.
+Before opening a discussion, check open and recently closed discussions to make
+sure the same thing hasn't already been reported or proposed.
 
 !!! warning
 
     - Ensure that you are using a recent version of the plugin.
-    - Ensure that you are using a supported version of VMware vSphere. The plugin supports versions in accordance with the [Broadcom Product Lifecycle][product-lifecycle].
+    - Ensure that you are using a supported version of VMware Fusion or VMware Workstation.
 
 !!! tip
 
