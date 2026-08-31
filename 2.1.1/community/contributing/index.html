@@ -21,7 +21,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="zensical-0.0.55">
+      <meta name="generator" content="zensical-0.0.57">
     
     
       
@@ -32,12 +32,12 @@
       
         
       
-      <link rel="stylesheet" href="../../assets/stylesheets/modern/main.20815dad.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/modern/main.5da3a30f.min.css">
       
         
           
         
-        <link rel="stylesheet" href="../../assets/stylesheets/modern/palette.dfe2e883.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/modern/palette.812a03bb.min.css">
       
       
 
@@ -568,10 +568,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#issues" class="md-nav__link">
+  <a href="#reporting" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
-        Issues
+        Reporting
       </span>
     </span>
   </a>
@@ -835,10 +835,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#issues" class="md-nav__link">
+  <a href="#reporting" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
-        Issues
+        Reporting
       </span>
     </span>
   </a>
@@ -880,27 +880,21 @@
 
 
 <h1 id="contributing-guidelines">Contributing Guidelines<a class="headerlink" href="#contributing-guidelines" title="Permanent link">&para;</a></h1>
-<p>We greatly value feedback and contributions from our community.</p>
-<p>Please review this document before submitting any issues or pull requests to ensure we have all the
-necessary information to effectively collaborate on your contribution.</p>
-<h2 id="issues">Issues<a class="headerlink" href="#issues" title="Permanent link">&para;</a></h2>
-<p>Use <a href="https://github.com/vmware/packer-plugin-vmware/issues">GitHub issues</a> to report bugs or suggest enhancements using the
-following guidelines.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Issues that do not follow the guidelines may be closed by the maintainers without
-further investigation.</p>
-</div>
-<p>Before opening an issue, please <a href="https://github.com/vmware/packer-plugin-vmware/issues?q=is%3Aissue+is%3Aopen+label%3Abug">search existing issues</a>
-to avoid duplicates.</p>
-<p>When opening an issue, use the provided issue form to ensure that you provide all the
-necessary details. These details are important for maintainers to understand and
-reproduce the issue.</p>
+<p>Thank you for your interest in this project.</p>
+<p>We greatly value feedback from the community.</p>
+<h2 id="reporting">Reporting<a class="headerlink" href="#reporting" title="Permanent link">&para;</a></h2>
+<p>Please use <a href="https://github.com/vmware/packer-plugin-vmware/discussions">GitHub Discussions</a> for all triage, ideas, and
+general project discussion.</p>
+<p>GitHub Issues are <strong>reserved</strong> for maintainer-tracked work items. Discussions
+that turn into confirmed issues or accepted ideas will have a linked issue
+created by a maintainer.</p>
+<p>Before opening a discussion, check open and recently closed discussions to make
+sure the same thing hasn't already been reported or proposed.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <ul>
 <li>Ensure that you are using a recent version of the plugin.</li>
-<li>Ensure that you are using a supported version of VMware vSphere. The plugin supports versions in accordance with the <a href="https://support.broadcom.com/group/ecx/productlifecycle">Broadcom Product Lifecycle</a>.</li>
+<li>Ensure that you are using a supported version of VMware Fusion or VMware Workstation.</li>
 </ul>
 </div>
 <div class="admonition tip">
@@ -912,54 +906,62 @@ reproduce the issue.</p>
 </ul>
 </div>
 <h2 id="pull-requests">Pull Requests<a class="headerlink" href="#pull-requests" title="Permanent link">&para;</a></h2>
-<p>Use GitHub pull requests to propose changes to the codebase using the following guidelines.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Pull requests that do not follow the guidelines may be closed by the maintainers
-without further review.</p>
-</div>
-<p><strong>Before</strong> submitting a pull request, ensure that:</p>
+<p>Pull requests are limited to repository collaborators.</p>
+<p>If you are not a collaborator, please use <a href="https://github.com/vmware/packer-plugin-vmware/discussions">GitHub Discussions</a>
+to report issues and propose ideas with the maintainer(s). If a change is
+accepted, a maintainer may assist with the collaboration or open the
+implementation directly.</p>
+<p><strong>Before</strong> sending us a pull request, please ensure that:</p>
 <ol>
-<li>You have <a href="https://github.com/vmware/packer-plugin-vmware/discussions">opened a discussion</a> to discuss any <strong>significant</strong> work with
-   the maintainer(s). This ensures that your contribution is aligned with the
-   project's direction and avoids unnecessary work.</li>
-<li>You have identified or <a href="https://github.com/vmware/packer-plugin-vmware/issues">open an issue</a>. This ensures that your contribution
-   focuses on a specific topic and avoids duplicating effort.</li>
-<li>You have forked the repository. Refer to the <a href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo">GitHub documentation</a> for help.</li>
-<li>You are working against the latest source on the <code>main</code> branch. You may need to
-   rebase your branch against the latest <code>main</code> branch.</li>
-<li>You have created a topic branch based on <code>main</code>. Do not work directly on the <code>main</code> branch.</li>
-<li>You have modified the source based on logical units of work. Focus on the specific change
-   you are contributing. Pull requests that contain multiple unrelated changes will be
-   rejected.</li>
-<li>You have followed the existing style and conventions of the project.</li>
-<li>You have added tests for your changes.</li>
-<li>You have generated the updated documentation and associated assets by running <code>make generate</code>.</li>
-<li>You have tested building the plugin by running <code>make build</code>.</li>
-<li>You have tested your changes with a local build of the plugin by running <code>make dev</code>.</li>
-<li>You have verified all new and existing tests are passing by running <code>make test</code>.</li>
-<li>You have used <a href="https://conventionalcommits.org">Conventional Commits</a> format for commit messages.</li>
-<li>You have signed-off and committed your changes <a href="https://cbea.ms/git-commit">using clear commit messages</a>.</li>
+<li>You check existing open, and recently merged, pull requests to make sure
+   someone else hasn't already addressed the problem.</li>
+<li>You <a href="https://github.com/vmware/packer-plugin-vmware/discussions">open a discussion</a> to discuss any significant work with
+   the maintainer(s).</li>
+<li>For changes that need tracked follow-up, you reference the relevant
+   discussion and any maintainer-created issue for context.</li>
+<li>You have collaborator access to the repository.</li>
+<li>You are working against the latest source on the <code>main</code> branch.</li>
 </ol>
-<p>When opening a pull request, ensure that:</p>
+<p>To open a pull request, please:</p>
 <ol>
-<li>You title your pull request using the <a href="https://conventionalcommits.org">Conventional Commits</a> format.</li>
-<li>You provide a detailed description of the changes in the pull request template.</li>
-<li>You open any work-in-progress pull requests as a draft.</li>
-<li>You mark the pull request as ready for review when you are ready for it to be reviewed.</li>
-<li>You follow the status checks for the pull request to ensure that all checks are passing.</li>
-<li>You stay involved in the conversation with the maintainers to ensure that your contribution
-   can be reviewed.</li>
+<li>Create a topic branch from the latest <code>main</code> branch.</li>
+<li>Modify the source; please focus on the <strong>specific</strong> change you are
+   contributing.</li>
+<li>Follow the existing style and conventions of the project.</li>
+<li>Add tests for your changes.</li>
+<li>Generate the updated documentation and associated assets by running
+   <code>make generate</code>.</li>
+<li>Test building the plugin by running <code>make build</code>.</li>
+<li>Test your changes with a local build of the plugin by running <code>make dev</code>.</li>
+<li>Verify all new and existing tests are passing by running <code>make test</code>.</li>
+<li>Update the documentation, if required.</li>
+<li>Sign-off and commit your changes
+    <a href="https://cbea.ms/git-commit">using a clear commit messages</a>. Use of
+    <a href="https://conventionalcommits.org">Conventional Commits</a> are required.</li>
+<li>Open a pull request, answering any default questions.</li>
+<li>Pay attention to any automated failures reported in the pull request, and
+    stay involved in the conversation.</li>
 </ol>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p>If you have any questions about the contribution process, open a <a href="https://github.com/vmware/packer-plugin-vmware/discussions">discussion</a>.</p>
-</div>
+<p>GitHub provides additional documentation on
+<a href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request">creating a pull request</a>.</p>
 <p><strong>Contributor Flow</strong></p>
 <p>This is an outline of the contributor workflow:</p>
+<ul>
+<li>Create a topic branch from where you want to base your work.</li>
+<li>Make commits of logical units.</li>
+<li>Make sure your commit messages are
+  <a href="https://conventionalcommits.org">in the proper format</a> <strong>and</strong> are signed-off.</li>
+<li>Push your changes to your collaborator branch.</li>
+<li>Submit a pull request. If the pull request is a work in progress, open as
+  draft until ready for review.</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This project <strong>requires</strong> that commits are signed-off for the Developer Certificate of Origin.</p>
+</div>
 <p>Example:</p>
-<div class="language-shell highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>upstream<span class="w"> </span>https://github.com/&lt;org-name&gt;/&lt;repo-name&gt;.git
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>feat/add-x<span class="w"> </span>main
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>upstream<span class="w"> </span>https://github.com/vmware/packer-plugin-vmware.git
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>git<span class="w"> </span>checkout<span class="w"> </span>--branch<span class="w"> </span>feat/add-x<span class="w"> </span>main
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>git<span class="w"> </span>commit<span class="w"> </span>--signoff<span class="w"> </span>--message<span class="w"> </span><span class="s2">"feat: add support for x</span>
 </span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="s2">  Added support for x.</span>
 </span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
@@ -969,7 +971,7 @@ without further review.</p>
 </span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>feat/add-x
 </span></code></pre></div>
 <p><strong>Formatting Commit Messages</strong></p>
-<p>Follow the conventions on <a href="https://cbea.ms/git-commit">How to Write a Git Commit Message</a> and use
+<p>Follow the conventions on <a href="https://cbea.ms/git-commit">How to Write a Git Commit Message</a> and
 <a href="https://conventionalcommits.org">Conventional Commits</a>.</p>
 <p>Be sure to include any related GitHub issue references in the commit message.</p>
 <p>Example:</p>
@@ -981,7 +983,7 @@ without further review.</p>
 </span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
 </span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>Ref: <span class="ni">#123</span>
 </span></code></pre></div>
-<p><strong>Stay In Sync With Upstream</strong></p>
+<p><strong>Staying In Sync With Upstream</strong></p>
 <p>When your branch gets out of sync with the <code>upstream/main</code> branch, use the
 following to update:</p>
 <div class="language-shell highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>git<span class="w"> </span>checkout<span class="w"> </span>feat/add-x
@@ -1001,13 +1003,18 @@ most recent commit, you can simply amend the commit.</p>
 <p>If you need to squash changes into an earlier commit, you can use:</p>
 <div class="language-shell highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>git<span class="w"> </span>add<span class="w"> </span>.
 </span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>git<span class="w"> </span>commit<span class="w"> </span>--fixup<span class="w"> </span>&lt;commit&gt;
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>git<span class="w"> </span>rebase<span class="w"> </span>--interactive<span class="w"> </span>--autosquash<span class="w"> </span>upstream/main
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>git<span class="w"> </span>rebase<span class="w"> </span>--interactive<span class="w"> </span>--autosquash<span class="w"> </span>main
 </span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>git<span class="w"> </span>push<span class="w"> </span>--force-with-lease<span class="w"> </span>origin<span class="w"> </span>feat/add-x
 </span></code></pre></div>
-<p>When resolving review comments, mark the conversation as resolved and note the commit
-SHA that addresses the review comment. This helps maintainers verify the issue has been
-resolved.</p>
-<p>Request a review from the maintainers when you are ready for a follow-up review.</p>
+<p>Be sure to add a comment to the pull request indicating your new changes are
+ready to review, as GitHub does not generate a notification when you <code>git push</code>.</p>
+<p>When resolving review comments, mark the conversation as resolved and note the
+commit SHA that addresses the review comment. This helps maintainers verify the
+issue has been resolved.</p>
+<p><strong>Finding Contributions to Work On</strong></p>
+<p>Looking at the existing discussions and maintainer-created issues is a great
+way to find something to contribute on. If you have an idea you'd like to
+discuss, <a href="https://github.com/vmware/packer-plugin-vmware/discussions">open a discussion</a>.</p>
 
 
 
@@ -1080,7 +1087,7 @@ resolved.</p>
       <script id="__config" type="application/json">{"annotate":null,"base":"../..","features":[],"search":"../../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":{"default":["latest","development"],"provider":"mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.e886cdf1.min.js"></script>
+      <script src="../../assets/javascripts/bundle.49251538.min.js"></script>
       
         <script src="../../javascripts/version-slot.js"></script>
       
