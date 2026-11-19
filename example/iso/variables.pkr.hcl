@@ -86,9 +86,9 @@ variable "version" {
   default     = 21
 }
 
-variable "iso_url" {
-  description = "The URL or local path to the ISO file for the operating system installation."
-  type        = string
+variable "iso_urls" {
+  description = "The URLs or local paths to the ISO file for the operating system installation. Each is tried in order until one succeeds."
+  type        = list(string)
 }
 
 variable "iso_checksum" {
