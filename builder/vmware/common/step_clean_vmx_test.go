@@ -199,6 +199,115 @@ func TestStepCleanVMX_ethernet(t *testing.T) {
 	}
 }
 
+func TestStepCleanVMX_vnc(t *testing.T) {
+	state := testState(t)
+	step := &StepCleanVMX{
+		VNCEnabled: true,
+	}
+
+	vmxPath := testVMXFile(t)
+	defer func() { _ = os.Remove(vmxPath) }()
+	if err := os.WriteFile(vmxPath, []byte(testVMXVNC), 0644); err != nil { //nolint:gosec
+		t.Fatalf("err: %s", err)
+	}
+
+	// Set the path to the temporary vmx
+	state.Put("vmx_path", vmxPath)
+
+	// Test the run
+	if action := step.Run(context.Background(), state); action != multistep.ActionContinue {
+		t.Fatalf("bad action: %#v", action)
+	}
+	if _, ok := state.GetOk("error"); ok {
+		t.Fatal("should NOT have error")
+	}
+
+	// Test the resulting data
+	vmxContents, err := os.ReadFile(vmxPath)
+	if err != nil {
+		t.Fatalf("err: %s", err)
+	}
+	vmxData := ParseVMX(string(vmxContents))
+
+	cases := []struct {
+		Key   string
+		Value string
+	}{
+		{"remotedisplay.vnc.enabled", "FALSE"},
+		{"remotedisplay.vnc.port", ""},
+		{"remotedisplay.vnc.ip", ""},
+		{"remotedisplay.vnc.password", ""},
+		{"foo", "bar"},
+	}
+
+	for _, tc := range cases {
+		if tc.Value == "" {
+			if _, ok := vmxData[tc.Key]; ok {
+				t.Fatalf("should not have key: %s", tc.Key)
+			}
+		} else {
+			if vmxData[tc.Key] != tc.Value {
+				t.Fatalf("bad: %s expected %#v, got %#v", tc.Key, tc.Value, vmxData[tc.Key])
+			}
+		}
+	}
+}
+
+func TestStepCleanVMX_vncDisabled(t *testing.T) {
+	state := testState(t)
+	step := new(StepCleanVMX)
+
+	vmxPath := testVMXFile(t)
+	defer func() { _ = os.Remove(vmxPath) }()
+	if err := os.WriteFile(vmxPath, []byte(testVMXVNC), 0644); err != nil { //nolint:gosec
+		t.Fatalf("err: %s", err)
+	}
+
+	// Set the path to the temporary vmx
+	state.Put("vmx_path", vmxPath)
+
+	// Test the run
+	if action := step.Run(context.Background(), state); action != multistep.ActionContinue {
+		t.Fatalf("bad action: %#v", action)
+	}
+	if _, ok := state.GetOk("error"); ok {
+		t.Fatal("should NOT have error")
+	}
+
+	// Test the resulting data
+	vmxContents, err := os.ReadFile(vmxPath)
+	if err != nil {
+		t.Fatalf("err: %s", err)
+	}
+	vmxData := ParseVMX(string(vmxContents))
+
+	// VNC settings not added by the build should be preserved
+	cases := []struct {
+		Key   string
+		Value string
+	}{
+		{"remotedisplay.vnc.enabled", "TRUE"},
+		{"remotedisplay.vnc.port", "5900"},
+		{"remotedisplay.vnc.ip", "127.0.0.1"},
+		{"remotedisplay.vnc.password", "secret"},
+		{"foo", "bar"},
+	}
+
+	for _, tc := range cases {
+		if vmxData[tc.Key] != tc.Value {
+			t.Fatalf("bad: %s expected %#v, got %#v", tc.Key, tc.Value, vmxData[tc.Key])
+		}
+	}
+}
+
+const testVMXVNC = `
+remotedisplay.vnc.enabled = "TRUE"
+remotedisplay.vnc.port = "5900"
+remotedisplay.vnc.ip = "127.0.0.1"
+remotedisplay.vnc.password = "secret"
+foo = "bar"
+`
+
 const testVMXFloppyPath = `
 floppy0.present = "TRUE"
 floppy0.filetype = "file"

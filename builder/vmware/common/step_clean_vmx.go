@@ -139,10 +139,14 @@ func (s StepCleanVMX) Run(ctx context.Context, state multistep.StateBag) multist
 		}
 	}
 
-	// Disable the VNC server, if necessary.
+	// Disable the VNC server and remove the settings added for the build, if necessary.
 	if s.VNCEnabled {
 		ui.Say("Disabling VNC server...")
 		vmxData["remotedisplay.vnc.enabled"] = "FALSE"
+		for _, k := range []string{"remotedisplay.vnc.port", "remotedisplay.vnc.ip", "remotedisplay.vnc.password"} {
+			log.Printf("[INFO] Deleting key for VNC server: %s", k)
+			delete(vmxData, k)
+		}
 	}
 
 	// Remove any ethernet devices, if necessary.
