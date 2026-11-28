@@ -5,8 +5,10 @@ PLUGIN_FQN="$(shell grep -E '^module' <go.mod | sed -E 's/module *//')"
 COUNT?=1
 TEST?=$(shell go list ./...)
 HASHICORP_PACKER_PLUGIN_SDK_VERSION?=$(shell go list -m github.com/hashicorp/packer-plugin-sdk | cut -d " " -f2)
+TESTACC_BUILDER_ISO_RUN?=TestAccISOBuilder_Matrix
+TESTACC_BUILDER_VMX_RUN?=TestAccVMXBuilder_Matrix
 
-.PHONY: dev build test install-packer-sdc plugin-check testacc generate docs-deps docs-prepare docs-test docs-test-links docs-test-internal-links docs-test-admonitions docs-test-example-labels docs-test-group-example-tabs docs-test-normalize docs-test-github-alerts docs-build docs-serve docs-serve-version docs-serve-mike docs-serve-mike-only docs-backfill
+.PHONY: dev build test install-packer-sdc plugin-check testacc testacc-builder testacc-builder-iso testacc-builder-vmx generate docs-deps docs-prepare docs-test docs-test-links docs-test-internal-links docs-test-admonitions docs-test-example-labels docs-test-group-example-tabs docs-test-normalize docs-test-github-alerts docs-build docs-serve docs-serve-version docs-serve-mike docs-serve-mike-only docs-backfill
 
 build:
 	@go build -o ${BINARY}
@@ -24,8 +26,15 @@ install-packer-sdc: ## Install packer sofware development command
 plugin-check: install-packer-sdc build
 	@packer-sdc plugin-check ${BINARY}
 
-testacc: dev
-	@PACKER_ACC=1 go test -count $(COUNT) -v $(TEST) -timeout=120m
+testacc: testacc-builder
+
+testacc-builder: testacc-builder-iso testacc-builder-vmx
+
+testacc-builder-iso: dev
+	@PACKER_ACC=1 go test -count $(COUNT) -v ./builder/vmware/iso -run '$(TESTACC_BUILDER_ISO_RUN)' -timeout=180m
+
+testacc-builder-vmx: dev
+	@PACKER_ACC=1 go test -count $(COUNT) -v ./builder/vmware/vmx -run '$(TESTACC_BUILDER_VMX_RUN)' -timeout=60m
 
 generate: install-packer-sdc
 	@go generate ./...

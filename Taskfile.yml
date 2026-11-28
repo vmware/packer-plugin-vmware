@@ -11,6 +11,8 @@ vars:
     sh: go list ./... | tr '\n' ' '
   HASHICORP_PACKER_PLUGIN_SDK_VERSION:
     sh: go list -m github.com/hashicorp/packer-plugin-sdk | cut -d " " -f2
+  TESTACC_BUILDER_ISO_RUN: '{{.TESTACC_BUILDER_ISO_RUN | default "TestAccISOBuilder_Matrix"}}'
+  TESTACC_BUILDER_VMX_RUN: '{{.TESTACC_BUILDER_VMX_RUN | default "TestAccVMXBuilder_Matrix"}}'
 
 tasks:
   build:
@@ -20,6 +22,7 @@ tasks:
 
   dev:
     desc: Build and install the plugin locally for development.
+    run: once
     cmds:
       - go build -ldflags="-X '{{.PLUGIN_FQN}}/version.VersionPrerelease=dev'" -o "{{.BINARY}}"
       - packer plugins install --path {{.BINARY}} "{{.PLUGIN_FQN | replace "packer-plugin-" ""}}"
@@ -44,9 +47,26 @@ tasks:
 
   testacc:
     desc: Run acceptance tests.
+    cmds:
+      - task: testacc-builder
+
+  testacc-builder:
+    desc: Run the builder acceptance tests.
+    cmds:
+      - task: testacc-builder-iso
+      - task: testacc-builder-vmx
+
+  testacc-builder-iso:
+    desc: Run the vmware-iso builder acceptance tests.
     deps: [dev]
     cmds:
-      - PACKER_ACC=1 go test -count {{.COUNT}} -v {{.TEST}} -timeout=120m
+      - PACKER_ACC=1 go test -count {{.COUNT}} -v ./builder/vmware/iso -run '{{.TESTACC_BUILDER_ISO_RUN}}' -timeout=180m
+
+  testacc-builder-vmx:
+    desc: Run the vmware-vmx builder acceptance tests.
+    deps: [dev]
+    cmds:
+      - PACKER_ACC=1 go test -count {{.COUNT}} -v ./builder/vmware/vmx -run '{{.TESTACC_BUILDER_VMX_RUN}}' -timeout=60m
 
   generate:
     desc: Run code generation for docs and other generated code.

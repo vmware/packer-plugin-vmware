@@ -11,4 +11,8 @@ crash.log
 crash.*.log
 builder/vmware/common/local_output/
 builder/vmware/common/test_output/
+
+# Acceptance Test Artifacts
+packer_log_*.txt
+vmware-*_acc_*.pkr.hcl
 packer-plugin-vmware*
